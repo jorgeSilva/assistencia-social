@@ -13,6 +13,7 @@ import IconCadBlack from '../../assets/cadastroEquipeBlack.svg'
 import IconExit from '../../assets/exit.svg'
 import IconListaExcluidos from '../../assets/listaExcluido.svg'
 import IconListaExcluidosBlack from '../../assets/listaExcluidoBlack.svg'
+import Input from '../Search/Input';
 
 type IContent = {
   patamar: string | null;
@@ -50,7 +51,16 @@ const Sidebar = ({patamar, exit}: IContent) => {
                   </button>
                 }
 
-                <button id='pesquisar' onClick={handleClick}>Pesquisar</button>
+                {
+                  id === 'pesquisar' ?
+                  <Input id='pesquisar' type='text' name='Pesquisar'/>
+                  :
+                  <button id='pesquisar' className={style.sidebar__painel__controle__button} onClick={handleClick}>
+                    <span id='pesquisar' className={style.sidebar__painel__controle}>
+                      <img id='pesquisar' src={IconSearch} className={style.sidebar__painel__controle__svg} />
+                    </span>
+                  </button>
+                }
               </div>
               
               {
@@ -150,18 +160,21 @@ const Sidebar = ({patamar, exit}: IContent) => {
                 buttonToggle && 
                 <div className={style.modal__container}>
                   <div className={style.modal__content}>
-                    <button onClick={() => setButtonToggle(!buttonToggle)} className={style.sidebar__button__menu__open}>
-                      {
-                        buttonToggle ?
+                    {
+                      buttonToggle ?
+                      <button onClick={() => setButtonToggle(!buttonToggle)} className={style.sidebar__button__menu__open__active}>
+
                         <span className={style.sidebar__button__menu__svg}>
                           <img src={IconClose} alt="" />
                         </span>
-                        :
+                      </button>
+                      :
+                      <button onClick={() => setButtonToggle(!buttonToggle)} className={style.sidebar__button__menu__open}>
                         <span className={style.sidebar__button__menu__svg}>
                           <img src={IconMenuHamburger} alt="" />
                         </span>
-                      }
-                    </button> 
+                      </button> 
+                    }
 
                     <div className={style.modal__content__patamar}>
                       <div>
@@ -182,7 +195,17 @@ const Sidebar = ({patamar, exit}: IContent) => {
                           </button>
                         }
 
-                        <button id='pesquisar' onClick={handleClick}>Pesquisar</button>
+                        {
+                          id === 'pesquisar' ?
+                          <Input id='pesquisar' type='text' name='Pesquisar'/>
+                          :
+                          <button id='pesquisar' style={{marginTop: "1rem"}} className={style.sidebar__painel__controle__button} onClick={handleClick}>
+                            <span id='pesquisar' className={style.sidebar__painel__controle}>
+                              <img id='pesquisar' src={IconSearch} className={style.sidebar__painel__controle__svg} />
+                            </span>
+                            <p id='pesquisar' style={{paddingRight:"1rem"}}>Painel de controle</p>
+                          </button>
+                        }
                       </div>
 
                       {
