@@ -1,0 +1,109 @@
+:root{
+  --c0:  #fff;
+  --c1:  #f7f7f7;
+  --c2:  #ededed;
+  --c3:  #dedede;
+  --c4:  #ccc;
+  --c5:  #b3b3b3;
+  --c6:  #9c9c9c;
+  --c7:  #707070;
+  --c8:  #595959;
+  --c9:  #404040;
+  --c10: #2e2e2e;
+  --c11: #212121;
+  --c12: #131313;
+  --c13: #000;
+  --p1: #EAE2B7;
+  --p2: #FCBF49;
+  --p3: #F77F00;
+  --p4: #D62828;
+  --p5: #003049;
+  --primary: #0077FF;
+  --dark: #000;
+}
+
+.App, 
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+p, h1, h2, h3, h4{
+  margin: 0;
+  padding: 0;
+}
+
+.loader{
+  display: block;
+  position: relative;
+  height: 12px;
+  width: 80%;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.loader::after {
+  content: '';
+  width: 40%;
+  height: 100%;
+  background: #FF3D00;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: animloader 2s linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    left: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    left: 100%;
+    transform: translateX(0%);
+  }
+}
+
+.sidebar{
+  grid-row: 1 / -1;
+  grid-column: 1 / 4;
+  padding: 1rem .5rem 1rem 1rem;
+}
+
+.sidebar__button__exit{
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+}
+
+.painel__equipe__saude{
+  grid-column: 4 / -1;
+  grid-row: 1;
+}
+
+.painel__familias{
+  grid-column: 4 / -1;
+  grid-row: 2 / -1;
+}
+
+@media (max-width: 1100px) {
+  .sidebar{
+    grid-column: inherit;
+    position: absolute;
+    padding: 1rem .5rem;
+  }
+  
+  .painel__equipe__saude{
+    grid-column: 1 / -1;
+    margin-left: 1rem;
+  }
+  
+  .painel__familias{
+    grid-column: 1 / -1;
+    margin-left: 1rem;
+  }
+}

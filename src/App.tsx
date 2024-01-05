@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Login from "./view/Login/Login"
+import Master from "./view/User/Master"
+import { AuthProvider } from "./context/loginContext"
+import Equipe from "./view/User/Equipe"
+import Saude from "./view/User/Saude"
+import { SidebarProvider } from "./context/sidebarContext"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AuthProvider>
+      <SidebarProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login/>}/>
+            <Route path="/master/:_id" element={<Master/>}/>
+            <Route path="/equipe/:_id" element={<Equipe/>}/>
+            <Route path="/saude/:_id" element={<Saude/>}/>
+          </Routes>
+        </BrowserRouter>
+      </SidebarProvider>
+    </AuthProvider>
+  )
 }
 
-export default App;
+export default App

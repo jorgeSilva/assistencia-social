@@ -1,0 +1,7 @@
+.equipe__container{
+  display: grid;
+  height: 100vh;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+}

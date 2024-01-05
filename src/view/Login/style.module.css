@@ -1,0 +1,190 @@
+.login__body{
+  background-color: var(--c2);
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 1rem;
+}
+
+.login__container__form{
+  grid-column: 3 / 11;
+  background-color:var(--c0);
+  margin: 4rem 0;
+  border-radius: 1.5rem;
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+}
+
+.login__content__left{
+  background:  url("../../assets/LoginBack.png") var(--c1) left top no-repeat;
+  width: 100%; 
+  height: 100%;
+  border-radius: 1.5rem;
+}
+
+.login__content__rigth{
+  padding: 2.5rem;
+}
+
+.login__name__system{
+  font-family: 'Montserrat', sans-serif;
+  color: var(--c4);
+  font-size: 1rem;
+}
+
+.login__h1__text{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.75rem;
+  font-weight: 600;
+  color: var(--c8);
+  margin-top: 2.25rem;
+}
+
+.login__p__text{
+  font-size: 1rem;
+  margin: .25rem 0 2rem 0;
+  font-weight: 400;
+  color: var(--c8);
+}
+
+.login__button__login{
+  padding: 1rem 2rem;
+  width: 100%;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--c0);
+  background: linear-gradient(140deg, var(--p3) 10%, var(--p4));;
+  border: none;
+  border-radius: 1rem;
+  margin-bottom: .5rem;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.login__button__login:hover, .login__button__login:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
+}
+
+.login__button__login__loading{
+  padding: 1rem 2rem;
+  width: 100%;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--c0);
+  background: linear-gradient(140deg, var(--p2) 10%, var(--p3));;
+  border: none;
+  border-radius: 1rem;
+  margin-bottom: .5rem; 
+}
+
+.login__image__bottom{
+  max-height: 350px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__image__bottom img{
+  height: 350px;
+}
+
+@media (max-width: 1599px) {
+  .login__image__bottom{
+    height: 290px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login__image__bottom img{
+    height: 100%;
+  }
+}
+
+@media (max-width: 1036px) {
+  .login__content__rigth{
+    padding: 2rem;
+  }
+
+  .login__name__system{
+    font-size: .8rem;
+  }
+  
+  .login__h1__text{
+    font-size: 2rem;
+    margin-top: 2.25rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .login__body{
+    background: url("../../assets/LoginBack.png") var(--c2);
+  }
+  
+  .login__content__left{
+    display: none;
+  }
+
+  .login__container__form{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    grid-column: 2/ 12;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 416px) {
+
+  .login__container__form{
+    grid-column: 1 / -1;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .login__content__rigth{
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 460px) {
+  .login__content__rigth{
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 416px) {
+  .login__container__form{
+    grid-column: 1 / -1;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+@media (max-width: 340px) {
+  .login__p__text{
+    font-size: .75rem;
+  }
+
+  .login__name__system{
+    font-size: .7rem;
+  }
+  
+  .login__h1__text{
+    font-size: 1.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .login__image__bottom{
+    height: 250px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login__image__bottom img{
+    height: 100%;
+  }
+}

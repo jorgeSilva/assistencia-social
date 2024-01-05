@@ -1,0 +1,12 @@
+.saude__container{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.saude__form{
+  grid-column: 4 / -1;
+  grid-row: 1 / -1;
+}

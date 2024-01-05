@@ -1,0 +1,315 @@
+.sidebar__container{
+  background-color: var(--c1);
+  border-radius: 1.5rem;
+  height: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  position: relative;
+}
+
+
+
+.sidebar__text__apresentation{
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--c9);
+}
+
+.sidebar__content__patamar{
+  display: grid;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  padding-top: 6rem;
+}
+
+.sidebar__content__patamar div{
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.sidebar__painel__controle__button__active{
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 52px;
+  border: 4px solid var(--c0);
+  gap: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: var(--c0);
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.sidebar__painel__controle__active{
+  height: 52px;
+  width: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--p3);
+  border-radius: 100%;
+  transition: .3s ease;
+}
+
+.sidebar__painel__controle__active img{
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .3s ease;
+}
+
+.sidebar__painel__controle__button{
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 52px;
+  border: 4px solid transparent ;
+  gap: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: transparent;
+  color: var(--c9);
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.sidebar__painel__controle{
+  height: 52px;
+  width: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--c11);
+  border-radius: 100%;
+  transition: .3s ease;
+}
+
+.sidebar__painel__controle img{
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: var(--c0);
+  transition: .3s ease;
+}
+
+@media (max-width: 1599px) {
+  .sidebar__container{
+    background-color: var(--c1);
+    border-radius: 1.5rem;
+    height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .sidebar__painel__controle__button__active{
+    gap: 8px;
+  }
+
+  .sidebar__painel__controle__button{
+    gap: 8px;
+  }
+
+  .sidebar__painel__controle__button__active p{
+    display: inline-flex;
+  }
+
+  .sidebar__painel__controle__button p{
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 1440px) {
+  .sidebar__painel__controle__active{
+    height: 32px;
+    width: 32px;
+  }
+  
+  .sidebar__painel__controle__active img{
+    height: 16px;
+    width: 16px;
+  }
+
+  .sidebar__painel__controle{
+    height: 32px;
+    width: 32px;
+  }
+  
+  .sidebar__painel__controle img{
+    height: 16px;
+    width: 16px;
+  }
+
+  .sidebar__painel__controle__button__active{
+    padding: 0 .5rem 0 0;
+    font-size: .85rem;
+  }
+
+  .sidebar__painel__controle__button{
+    padding: 0 .5rem 0 0;
+    font-size: .85rem;
+  }
+}
+
+@media (max-width: 1360px) {
+  .sidebar__content__patamar div{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.sidebar__toggle__content{
+  display: none;
+}
+
+.sidebar__button__menu__open{
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .sidebar__text__apresentation{
+    display: none;
+  }
+
+  .sidebar__content__patamar{
+    display: none;
+  }
+
+  .modal__content__patamar{
+    display: grid;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    padding-top: 6rem;
+  }
+
+  .sidebar__toggle__content{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar__button__menu__open{
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .sidebar__button__menu__svg img{
+    width: 24px;
+    height: 24px;
+    transition: .3s ease;
+  }
+
+  .sidebar__container{
+    border-radius: 1rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .modal__container{
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    right: -1rem;
+    bottom: -1rem;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    background-color: #00000098;
+    z-index: 3;
+    transition: .3s ease;
+  }
+
+  .modal__content{
+    width: 400px;
+    height: 600px;
+    background-color: var(--c1);
+    margin-left: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transition: .3s ease;
+    text-align: initial;
+    position: relative;
+  }
+}
+
+@media (max-width: 459px) {
+  .modal__content__patamar{
+    display: grid;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    padding-top: 6rem;
+  }
+
+  .sidebar__toggle__content{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar__button__menu__open{
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .sidebar__button__menu__svg img{
+    width: 24px;
+    height: 24px;
+    transition: .3s ease;
+  }
+
+  .sidebar__container{
+    border-radius: 1rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .modal__container{
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    right: -1rem;
+    bottom: -1rem;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    background-color: #00000098;
+    z-index: 3;
+    transition: .3s ease;
+    display: flex;
+    justify-content: center;
+  }
+
+  .modal__content{
+    width: 80%;
+    height: 600px;
+    background-color: var(--c1);
+    margin-left: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+}

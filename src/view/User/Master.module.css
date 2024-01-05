@@ -1,0 +1,275 @@
+.master__container{
+  display: grid;
+  height: 100vh;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+  transition: .3s ease;
+  position: relative;
+}
+
+.painel__container{
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  gap: 1rem;
+  padding: 1rem 1rem 0 0;
+}
+
+.painel__slot__text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.painel__slot__text p{
+  font-weight: 400;
+  font-family: 'Montserrat';
+  font-size: 3.5rem;
+  align-items: center;
+  color: var(--c9);
+  position: relative;
+}
+
+.painel__slot__text p::before{
+  content: "";
+  background-color: var(--p1);
+  width: 1rem;
+  height: .5rem;
+  position: absolute;
+  top: 0px;
+  left: -5px;
+}
+
+.painel__slot__content{
+  background-color: var(--c1);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.painel__slot__content h1{
+  color: var(--c10);
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.painel__content{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 1rem;
+  box-sizing: border-box;
+  gap: 1rem;
+}
+
+.painel__patamar__content__master,
+.painel__patamar__content__equipe,
+.painel__patamar__content__saude{
+  max-height: 200px;
+}
+
+.painel__patamar__content__master h2,
+.painel__patamar__content__equipe h2,
+.painel__patamar__content__saude h2{
+  grid-row: 1;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--c9);
+}
+
+.painel__patamar__content__master div,
+.painel__patamar__content__equipe div,
+.painel__patamar__content__saude div{
+  grid-row: 2;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: .25rem 1rem 1rem 1rem;
+}
+
+.painel__patamar__content__master div p,
+.painel__patamar__content__equipe div p,
+.painel__patamar__content__saude div p{
+  position: relative;
+}
+.painel__patamar__content__master div p::after,
+.painel__patamar__content__equipe div p::after,
+.painel__patamar__content__saude div p::after{
+  content: "";
+  position: absolute;
+  height: 1rem;
+  width: 4px;
+  left: -.5rem;
+  top: 2px;
+  background-color: var(--p2);
+}
+
+.painel__container__table{
+  background-color: var(--c1);
+  height: 97%;
+  margin: 0 1rem 1rem 0rem;
+  padding: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.painel__container__table h1{ 
+  color: var(--c10);
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.painel__table__content{
+  height: 100%;
+  background-color: var(--c2);
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+@media (max-width: 1315px) {
+  .painel__slot__text p{
+    font-weight: 400;
+    font-family: 'Montserrat';
+    font-size: 2.5rem;
+    align-items: center;
+    color: var(--c9);
+    position: relative;
+  }
+  
+  .painel__slot__text p::before{
+    content: "";
+    background-color: var(--p1);
+    width: 1rem;
+    height: .5rem;
+    position: absolute;
+    top: 0px;
+    left: -5px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .master__container{
+    grid-template-columns: 100px repeat(11, 1fr);
+  }
+}
+
+@media (max-width: 950px) {
+  .master__container{
+    grid-template-columns: 70px repeat(11, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .painel__slot__content{
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+
+  .painel__slot__text p{
+    margin-left: 4rem;
+    font-size: 1.75rem;
+  }
+
+  .painel__slot__text p::before{
+    content: "";
+    background-color: var(--p1);
+    width: .85rem;
+    height: .4rem;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+  }
+  
+  .painel__container{
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: initial;
+  }
+
+  .painel__content{
+    display: grid;
+    grid-template-columns:  minmax(20px, auto) minmax(20px, auto) 1fr;
+    padding: 1rem;
+    box-sizing: border-box;
+    gap: 1rem;
+  }
+
+  .painel__patamar__content__master,
+  .painel__patamar__content__equipe,
+  .painel__patamar__content__saude{
+    max-height: 180px;
+  }
+
+  .painel__patamar__content__master h2,
+  .painel__patamar__content__equipe h2,
+  .painel__patamar__content__saude h2{
+    font-size: 1rem;
+  }
+  
+  .painel__patamar__content__master div,
+  .painel__patamar__content__equipe div,
+  .painel__patamar__content__saude div{
+    padding: .25rem 1rem 1rem 1rem;
+    box-sizing: border-box;
+  }
+
+  .painel__container__table{
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+  
+  .painel__table__content{
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 510px) {
+  .painel__content{
+    grid-template-rows: minmax(20px, auto) minmax(20px, auto) 1fr;
+    padding: 1rem 0;
+  }
+
+  .painel__patamar__content__master,
+  .painel__patamar__content__equipe,
+  .painel__patamar__content__saude{
+    max-height: 120px;
+  }
+
+  .painel__patamar__content__master{
+    grid-row: 1;
+    grid-column: 1/ -1;
+  }
+
+  .painel__patamar__content__equipe{
+    grid-row: 2;
+    grid-column: 1/ -1;
+  }
+
+  .painel__patamar__content__saude{
+    grid-row: 3;
+    grid-column: 1/ -1;
+  }
+}
+
+@media (max-width: 459px) {
+  .painel__slot__text p{
+    padding-top: .5rem;
+    margin-left: 4rem;
+    font-size: 1.5rem;
+  }
+
+  .painel__slot__text p::before{
+    content: "";
+    background-color: var(--p1);
+    width: .85rem;
+    height: .4rem;
+    position: absolute;
+    top: .25rem;
+    left: -5px;
+  }
+}
