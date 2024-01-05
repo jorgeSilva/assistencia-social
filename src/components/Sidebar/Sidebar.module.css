@@ -7,8 +7,6 @@
   position: relative;
 }
 
-
-
 .sidebar__text__apresentation{
   font-size: .85rem;
   font-weight: 500;
@@ -34,7 +32,7 @@
   justify-content: flex-start;
   align-items: center;
   border-radius: 52px;
-  border: 4px solid var(--c0);
+  border: 1px solid var(--c0);
   gap: 1rem;
   font-size: 1rem;
   font-weight: 700;
@@ -65,11 +63,11 @@
 
 .sidebar__painel__controle__button{
   display: flex;
-  width: 100%;
+  width: max-content;
   justify-content: flex-start;
   align-items: center;
   border-radius: 52px;
-  border: 4px solid transparent ;
+  border: 1px solid transparent ;
   gap: 1rem;
   font-size: 1rem;
   font-weight: 600;
@@ -77,6 +75,14 @@
   color: var(--c9);
   cursor: pointer;
   transition: .3s ease;
+}
+
+.sidebar__painel__controle__button:hover,
+.sidebar__painel__controle__button__active:hover,
+.sidebar__painel__controle__button:focus,
+.sidebar__painel__controle__button__active:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
 }
 
 .sidebar__painel__controle{

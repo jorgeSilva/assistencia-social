@@ -77,7 +77,59 @@ p, h1, h2, h3, h4{
 .sidebar__button__exit{
   position: absolute;
   bottom: 2rem;
-  left: 2rem;
+  left: 1rem;
+  right: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 52px;
+  border: 1px solid var(--c0);
+  gap: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: var(--c0);
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.sidebar__painel__controle{
+  height: 52px;
+  width: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--c11);
+  border-radius: 100%;
+  transition: .3s ease;
+}
+
+.sidebar__painel__controle img{
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .3s ease;
+}
+
+.sidebar__button__exit:hover,
+.sidebar__button__exit:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
+}
+
+
+@media (max-width: 1440px) {
+  .sidebar__painel__controle{
+    height: 32px;
+    width: 32px;
+  }
+  
+  .sidebar__painel__controle img{
+    height: 16px;
+    width: 16px;
+  }
 }
 
 .painel__equipe__saude{
