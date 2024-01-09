@@ -15,7 +15,7 @@ export const useProviderSidebar = () => {
 }
 
 export const SidebarProvider = ({children}: React.PropsWithChildren) => {
-  const [content, setContent] = React.useState('painel de controle')
+  const [content, setContent] = React.useState('controle')
   const [id, setID] = React.useState('controle')
 
   const handleClick = (e: any) => {
@@ -24,9 +24,8 @@ export const SidebarProvider = ({children}: React.PropsWithChildren) => {
 
     if(idButton === e.target.id){
       setID(idButton)
+      setContent(idButton)
     }
-    
-    setContent(text)
   }
 
   return <SidebarContext.Provider value={{handleClick, content, id}}>

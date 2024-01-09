@@ -3,10 +3,14 @@ import { useProvider } from '../../context/loginContext'
 import style from './Equipe.module.css'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import { useProviderSidebar } from '../../context/sidebarContext'
+import Content from '../../components/Content/Content'
 
 const Equipe = () => {
+
+  document.title = "Assistencia Social | Equipe"
+
   const {handleLogout} = useProvider()
-  const {content} = useProviderSidebar()
+  const {content, id} = useProviderSidebar()
 
   const authorized = localStorage.getItem('authenticated')
   const url = document.URL.split("/")[3]
@@ -22,61 +26,33 @@ const Equipe = () => {
       </section>
       {
         (
-          content === 'painel de controle'
+          id === 'controle'
           && 
-          <>
-            <section className='painel__equipe__saude'>
-              <p>Funcionarios online</p>
-            </section>
-
-            <section className='painel__familias'>
-              <p>Familias</p>
-            </section>
-          </>
+          <Content id={id} content={content}/>
         )
 
         ||
 
         (
-          content === 'lista de excluidos'
+          id === 'pesquisar'
           && 
-          <>
-            <section className='painel__equipe__saude'>
-              <p>Funcionarios online</p>
-            </section>
-
-            <section className='painel__familias'>
-              <p>Familias Excluidas</p>
-            </section>
-          </>
+          <Content id={id} content={content}/>
         )
 
         ||
 
         (
-          content === 'pesquisar'
+          id === 'excluidos'
           && 
-          <>
-            <section className='painel__equipe__saude'>
-              <p>Funcionarios online</p>
-            </section>
-
-            <section className='painel__familias'>
-              <p>Familias pesquisa</p>
-            </section>
-          </>
+          <Content id={id} content={content}/>
         )
 
         ||
 
         (
-          content === 'cadastro de familias'
+          id === 'familias'
           && 
-          <>
-            <section className='cadastro__familias'>
-              <p>Cadastro familias</p>
-            </section>
-          </>
+          <Content id={id} content={content}/>
         )
       }
     </main>
