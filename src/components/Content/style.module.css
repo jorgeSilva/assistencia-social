@@ -273,3 +273,66 @@
     left: -5px;
   }
 }
+
+.loader {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite
+}
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid var(--p4);
+  animation: prixClipFix 2s linear infinite ;
+}
+
+@keyframes rotate {
+  100%   {transform: rotate(360deg)}
+}
+
+@keyframes prixClipFix {
+    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+}
+
+.painel__table__content{
+  height: 100%;
+  background-color: var(--c2);
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  overflow: auto;
+}
+
+table, th, td{
+  border: 2px solid var(--c6);
+  border-collapse: collapse;
+  padding: 1rem 2rem;
+}
+
+th, td{
+  width: 100%;
+  white-space: nowrap;
+}
+
+tbody tr th{
+  padding: 0;
+}
+
+th button{
+  width: 100%;
+  padding: .5rem 1rem;
+  border: none;
+}
+
+table{
+  width: 100%;
+}

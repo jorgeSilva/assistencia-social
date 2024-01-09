@@ -1,6 +1,6 @@
 import React from 'react'
 import style from  './style.module.css'
-import useFetch from '../../service/useFetch';
+import UseFetch from '../../service/useFetch';
 
 type IContentId = {
   content: string;
@@ -15,16 +15,79 @@ type IUser = [{
   patamar: 'master' | 'equipe' | 'saude'
 }]
 
+type IFamilias = [{
+    _id: string,
+		nome: string,
+		cpf: number,
+		parentesco: string,
+		responsavel: true,
+		dataNasc: string,
+		nis: string,
+		inicio: string,
+		fim: string,
+		nFilhosMaior: number,
+		nFilhosMenor: number,
+		residencia: string,
+		idoso: boolean,
+		bpc: boolean,
+		contato: string,
+		rua: string,
+		bairro: string,
+		nCasa: 12,
+		complemento: string,
+		areaDeRisco: string,
+		fkUserCad: string,
+}]
+
+type IIntegrantes = [{
+  _id: string,
+  nome: string,
+  dataNasc: string,
+  parentesco: string,
+  cpf: number,
+  fkFamilia: string,
+}]
+
 const Content = ({content, id}: IContentId) => {
+  // ---------------------------------------------------------------------------- Variaveis -----------------------------------------------------------
+
   const token = localStorage.getItem('token') 
   const tokenValid = token ? token : 'nao'
   const [dataUser, setDataUser] = React.useState<Record<"master" | "equipe" | "saude", IUser[]> | null>(null)
+  const [dataIntegrante, setDataIntegrante] = React.useState<IIntegrantes | null>(null)
+  const [urlIntegrante, setUrlIntegrante] = React.useState<string>('')
 
-  const {data, loading, error} = useFetch<IUser>(`https://backendassistenciasocial-production.up.railway.app/usuario`, {
+  // --------------------------------------------------------------------------- Chamadas API ----------------------------------------------------------
+
+  const {data, loading, error} = UseFetch<IUser>(`https://backendassistenciasocial-production.up.railway.app/usuario`, {
     headers:{
       'Authorization': `Bearer ${JSON.parse(tokenValid)}`
     }
   })
+
+  const familias = UseFetch<IFamilias>(`https://backendassistenciasocial-production.up.railway.app/familia/show`, {
+    headers:{
+      'Authorization': `Bearer ${JSON.parse(tokenValid)}`
+    }
+  })
+
+  const integrantes = UseFetch<IIntegrantes>(`https://backendassistenciasocial-production.up.railway.app/familia/integrante/show/${urlIntegrante}`, {
+      headers:{
+        'Authorization': `Bearer ${JSON.parse(tokenValid)}`
+      }
+  })
+
+  const excluidos = UseFetch<IFamilias>(`https://backendassistenciasocial-production.up.railway.app/excluidos/show`, {
+    headers:{
+      'Authorization': `Bearer ${JSON.parse(tokenValid)}`
+    }
+  })
+
+  React.useEffect(() => {
+    integrantes.data && setDataIntegrante(integrantes.data)
+  }, [integrantes])
+    
+  // --------------------------------------------------------------------- Funções front-end --------------------------------------------------------------
 
   function patamarSelect(item: IUser){
     const contagem: Record<'master' | 'equipe' | 'saude', IUser[]> = {
@@ -40,6 +103,10 @@ const Content = ({content, id}: IContentId) => {
 
     setDataUser(contagem)
   }
+
+  function handleClick(item: any){
+    setUrlIntegrante(item._id)
+  }  
 
   React.useEffect(() => {
     data && patamarSelect(data)
@@ -67,9 +134,10 @@ const Content = ({content, id}: IContentId) => {
 
                       <div>
                         {
-                          (loading && <p>carregando...</p>)
+                          (loading &&  <p>carregando... <span className={style.loader}></span> <span className={style.loader}></span></p>
+                          ) 
                           ||
-                          (new Array(dataUser)[0]?.master.map((item) =>  <p>{item[0].nome}</p> ))
+                          (new Array(dataUser)[0]?.master.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -81,9 +149,9 @@ const Content = ({content, id}: IContentId) => {
 
                       <div>
                         {
-                          (loading && <p>carregando...</p>)
+                          (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.equipe.map((item) =>  <p>{item[0].nome}</p> ))
+                          (new Array(dataUser)[0]?.equipe.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -95,9 +163,9 @@ const Content = ({content, id}: IContentId) => {
 
                       <div>
                         {
-                          (loading && <p>carregando...</p>)
+                          (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.saude.map((item) =>  <p>{item[0].nome}</p> ))
+                          (new Array(dataUser)[0]?.saude.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -112,9 +180,70 @@ const Content = ({content, id}: IContentId) => {
               <div className={style.painel__container__table}>
                 <h1>Familias cadastradas no sistema.</h1>
 
-                <div className={style.painel__table__content}>
-                  dasdsadsad
-                </div>
+                <section className={style.painel__table__content}>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Parentesco</th>
+                        <th>Responsavel</th>
+                        <th>Data nascimento</th>
+                        <th>NISS</th>
+                        <th>Inicio</th>
+                        <th>Fim</th>
+                        <th>N° Filhos maior</th>
+                        <th>N° Filhos menor</th>
+                        <th>Residencia</th>
+                        <th>Idoso</th>
+                        <th>BPC</th>
+                        <th>Contato</th>
+                        <th>Rua</th>
+                        <th>Bairro</th>
+                        <th>N° Casa</th>
+                        <th>Complemento</th>
+                        <th>Area de Risco</th>
+                        <th>Quem cadastrou ?</th>
+                        <th>Nome integrante</th>
+                      </tr>
+                    </thead>
+                    
+                    {
+                      (
+                        familias.loading && <p>carregando...</p>
+                      )
+                      ||
+                      <tbody>
+                        {
+                          familias.data && familias.data.map(item => (
+                            <tr key={item.cpf}>
+                              <th> <button onClick={() => handleClick(item)}> {item.nome}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.cpf}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.parentesco}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.responsavel === true ? 'SIM' : 'NÃO' }</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.dataNasc}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.nis}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.inicio}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.fim}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.nFilhosMaior}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.nFilhosMenor}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.residencia}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.idoso === true ? 'SIM' : 'NÃO'}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.bpc === true ? 'SIM' : 'NÃO'}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.contato}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.rua}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.bairro}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.nCasa}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.complemento}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.areaDeRisco === 'false' ? 'NÃO' : item.areaDeRisco}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.fkUserCad}</button></th>
+                            </tr>
+                          ))
+                        }
+                      </tbody>
+                    }
+                  </table>
+                </section>
               </div>
             </section>
           </>
@@ -141,9 +270,9 @@ const Content = ({content, id}: IContentId) => {
 
                       <div>
                         {
-                          (loading && <p>carregando...</p>)
+                          (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.master.map((item) =>  <p>{item[0].nome}</p> ))
+                          (new Array(dataUser)[0]?.master.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -155,9 +284,9 @@ const Content = ({content, id}: IContentId) => {
 
                       <div>
                         {
-                          (loading && <p>carregando...</p>)
+                          (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.equipe.map((item) =>  <p>{item[0].nome}</p> ))
+                          (new Array(dataUser)[0]?.equipe.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -169,9 +298,9 @@ const Content = ({content, id}: IContentId) => {
 
                       <div>
                         {
-                          (loading && <p>carregando...</p>)
+                          (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.saude.map((item) =>  <p>{item[0].nome}</p> ))
+                          (new Array(dataUser)[0]?.saude.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -215,9 +344,9 @@ const Content = ({content, id}: IContentId) => {
 
                       <div>
                         {
-                          (loading && <p>carregando...</p>)
+                          (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.master.map((item) =>  <p>{item[0].nome}</p> ))
+                          (new Array(dataUser)[0]?.master.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -229,9 +358,9 @@ const Content = ({content, id}: IContentId) => {
 
                       <div>
                         {
-                          (loading && <p>carregando...</p>)
+                          (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.equipe.map((item) =>  <p>{item[0].nome}</p> ))
+                          (new Array(dataUser)[0]?.equipe.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -243,9 +372,9 @@ const Content = ({content, id}: IContentId) => {
 
                       <div>
                         {
-                          (loading && <p>carregando...</p>)
+                          (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.saude.map((item) =>  <p>{item[0].nome}</p> ))
+                          (new Array(dataUser)[0]?.saude.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -261,7 +390,68 @@ const Content = ({content, id}: IContentId) => {
                 <h1>Familias excluidas do sistema.</h1>
 
                 <div className={style.painel__table__content}>
-                  dasdsadsad
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Parentesco</th>
+                        <th>Responsavel</th>
+                        <th>Data nascimento</th>
+                        <th>NISS</th>
+                        <th>Inicio</th>
+                        <th>Fim</th>
+                        <th>N° Filhos maior</th>
+                        <th>N° Filhos menor</th>
+                        <th>Residencia</th>
+                        <th>Idoso</th>
+                        <th>BPC</th>
+                        <th>Contato</th>
+                        <th>Rua</th>
+                        <th>Bairro</th>
+                        <th>N° Casa</th>
+                        <th>Complemento</th>
+                        <th>Area de Risco</th>
+                        <th>Quem cadastrou ?</th>
+                        <th>Nome integrante</th>
+                      </tr>
+                    </thead>
+
+                    {
+                      (
+                        excluidos.loading && <p>carregando...</p>
+                      )
+                      ||
+                      <tbody>
+                        {
+                          excluidos.data && excluidos.data.map(item => (
+                            <tr key={item.cpf}>
+                              <th> <button onClick={() => handleClick(item)}> {item.nome}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.cpf}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.parentesco}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.responsavel === true ? 'SIM' : 'NÃO' }</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.dataNasc}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.nis}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.inicio}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.fim}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.nFilhosMaior}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.nFilhosMenor}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.residencia}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.idoso === true ? 'SIM' : 'NÃO'}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.bpc === true ? 'SIM' : 'NÃO'}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.contato}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.rua}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.bairro}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.nCasa}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.complemento}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.areaDeRisco === 'false' ? 'NÃO' : item.areaDeRisco}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.fkUserCad}</button></th>
+                            </tr>
+                          ))
+                        }
+                      </tbody>
+                    }
+                  </table>
                 </div>
               </div>
             </section>

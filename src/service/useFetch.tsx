@@ -1,6 +1,6 @@
 import React from "react";
 
-function useFetch<T>(url: string, options?: RequestInit){
+function UseFetch<T>(url: string, options?: RequestInit){
   const [data, setData] = React.useState<T | null>(null)
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
@@ -45,4 +45,4 @@ function useFetch<T>(url: string, options?: RequestInit){
   return {data, loading, error}
 }
 
-export default useFetch
+export default UseFetch
