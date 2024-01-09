@@ -123,14 +123,6 @@
   font-size: 1rem;
 }
 
-.painel__table__content{
-  height: 100%;
-  background-color: var(--c2);
-  margin-top: 2rem;
-  padding: 1rem;
-  border-radius: 1rem;
-}
-
 @media (max-width: 1315px) {
   .painel__slot__text p{
     font-weight: 400;

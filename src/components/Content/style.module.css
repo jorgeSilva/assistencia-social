@@ -116,19 +116,11 @@
   box-sizing: border-box;
 }
 
-.painel__container__table h1{ 
+.painel__container__table__h1{ 
   color: var(--c10);
   font-family: 'Montserrat';
   font-weight: 500;
   font-size: 1rem;
-}
-
-.painel__table__content{
-  height: 100%;
-  background-color: var(--c2);
-  margin-top: 2rem;
-  padding: 1rem;
-  border-radius: 1rem;
 }
 
 @media (max-width: 1315px) {
@@ -310,6 +302,19 @@
   padding: 1rem;
   border-radius: 1rem;
   overflow: auto;
+  position: relative;
+}
+
+.modal__button__active{
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 table, th, td{
@@ -331,6 +336,7 @@ th button{
   width: 100%;
   padding: .5rem 1rem;
   border: none;
+  cursor: pointer;
 }
 
 table{
