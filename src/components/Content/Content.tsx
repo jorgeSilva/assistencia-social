@@ -3,6 +3,7 @@ import style from  './style.module.css'
 import UseFetch from '../../service/useFetch';
 import ModalActions from '../Modal/ModalActions';
 import X from '../../assets/x-circle-fill.svg'
+import Form from '../Form/Form';
 
 type IContentId = {
   content: string;
@@ -189,13 +190,13 @@ const Content = ({content, id}: IContentId) => {
                 
                 {
                   options && !modalDelete && !modalUpdate && !modalUpdate ?
-                  <div>
+                  <div className={style.modal__buttons__content}>
                     <button className={style.modal__button} onClick={() => setModalUpdate(!modalUpdate)}>Editar</button>
                     <button className={style.modal__button} onClick={() => setModalDelete(!modalDelete)}>Excluir</button>
                     <button className={style.modal__button} onClick={() => setModalIntegrantes(!modalIntegrantes)}>Integrantes</button>
                   </div>
                   :
-                  <div>
+                  <div className={style.modal__buttons__content}>
                     <button className={style.modal__button__disabled} disabled>Editar</button>
                     <button className={style.modal__button__disabled} disabled>Excluir</button>
                     <button className={style.modal__button__disabled} disabled>Integrantes</button>
@@ -504,6 +505,54 @@ const Content = ({content, id}: IContentId) => {
                     }
                   </table>
                 </div>
+              </div>
+            </section>
+          </>
+        )
+
+        ||
+
+        (
+          id === 'familias' && content === 'familias'
+          &&
+          <>
+            <section className={style.form__content}>
+              <h1 className={style.form__h1}>Cadastre uma familia</h1>
+
+              <div className={style.form}>
+                <Form id={id}/>  
+              </div>
+            </section>
+          </>
+        )
+
+        ||
+
+        (
+          id === 'equipe' && content === 'equipe'
+          &&
+          <>
+            <section className={style.form__content}>
+              <h1 className={style.form__h1}>Cadastre uma familia</h1>
+
+              <div className={style.form}>
+                <Form id={id}/>  
+              </div>
+            </section>
+          </>
+        )
+
+        ||
+
+        (
+          id === 'saude' && content === 'saude'
+          &&
+          <>
+            <section className={style.form__content}>
+              <h1 className={style.form__h1}>Cadastre uma familia</h1>
+
+              <div className={style.form}>
+                <Form id={id}/>  
               </div>
             </section>
           </>

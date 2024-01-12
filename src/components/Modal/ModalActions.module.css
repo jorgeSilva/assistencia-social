@@ -12,7 +12,6 @@
 .modal__table__th{
   font-size: 1rem;
   font-weight: 500;
-  padding: 1rem 2rem;
   letter-spacing: .25px;
 }
 
@@ -24,7 +23,6 @@
 table, th, td{
   border: 2px solid var(--c6);
   border-collapse: collapse;
-  padding: 1rem 2rem;
 }
 
 th, td{
@@ -34,4 +32,11 @@ th, td{
 
 table{
   width: 100%;
+}
+
+th input{
+  background-color: transparent;
+  border: none;
+  padding: .5rem 1rem;
+  text-align: center;
 }
