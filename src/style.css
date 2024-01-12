@@ -159,3 +159,9 @@ p, h1, h2, h3, h4{
     margin-left: 1rem;
   }
 }
+
+@media (max-width: 431px) {
+  .painel__familias{
+    height: 100vh;
+  }
+}

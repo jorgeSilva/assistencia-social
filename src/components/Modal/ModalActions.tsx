@@ -154,30 +154,7 @@ const ModalActions = ({id, type}: IModalType) => {
     .finally(() => setLoadingUP(false))
   }
 
-  console.log(
-    nome,
-    cpf,
-    parentesco,
-    responsavel,
-    dataNascimento,
-    NIS,
-    dataInicio,
-    dataFim,
-    nFilhosMaior,
-    nFilhosMenor,
-    idoso,
-    BPC,
-    Telefone,
-    nomeRua,
-    nomeBairro,
-    complemento,
-    nCasa,
-    residencia,
-    areaRisco
-  );
-
   // ------------------------------------------------------------- React useEffect -----------------------------------------------------------------
-
 
   React.useEffect(() => {
     setIdFamilia(id)
@@ -345,7 +322,7 @@ const ModalActions = ({id, type}: IModalType) => {
                     }
                   </table>
 
-                  <button onClick={handleUpdateFamilia}>Salvar edição</button>
+                  <button className={style.buttom__delete__update} onClick={handleUpdateFamilia}>Salvar edição</button>
                 </>
               )
             }
@@ -356,7 +333,7 @@ const ModalActions = ({id, type}: IModalType) => {
           type === 'delete'
           &&
           <>
-            <h1 className={style.modal__h1}>Faça alterações no sistema</h1>
+            <h1 className={style.modal__h1}>Delete o registro de determinada familia</h1>
             {
               (
                 loading && <p style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>carregando...</p>
@@ -487,7 +464,7 @@ const ModalActions = ({id, type}: IModalType) => {
                     }
                   </table>
 
-                  <button onClick={handleDeleteFamilia}>Excluir Cadastro</button>
+                  <button className={style.buttom__delete__update} onClick={handleDeleteFamilia}>Excluir Cadastro</button>
                 </>
               )
             }

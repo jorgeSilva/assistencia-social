@@ -40,3 +40,24 @@ th input{
   padding: .5rem 1rem;
   text-align: center;
 }
+
+.buttom__delete__update{
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--c0);
+  background: linear-gradient(140deg, var(--p3) 10%, var(--p4));;
+  border: none;
+  border-radius: 1rem;
+  margin-bottom: .5rem;
+  cursor: pointer;
+  transition: .3s ease;
+  box-sizing: border-box;
+  background-color: aliceblue;
+}
+
+.buttom__delete__update:hover, .buttom__delete__update:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
+}

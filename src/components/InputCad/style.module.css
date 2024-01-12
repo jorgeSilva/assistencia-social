@@ -81,6 +81,17 @@
   width: 42ch;
 }
 
+@media (max-width: 1100px) {
+  .input__content__radio__button{
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .p__input__radio{
+    width: 30ch;
+  }
+}
+
 .button__input__radio{
   display: flex;
   align-items: center;
@@ -93,6 +104,21 @@
   border-radius: 1rem;
   border: 1px solid var(--c6);
   cursor: pointer;
+}
+
+@media (max-width: 460px) {
+  .input__content__radio__button{
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .p__input__radio{
+    width: 100%;
+  }
+
+  .button__input__radio{
+    width: max-content;
+  }
 }
 
 .button__input__radio:hover, .button__input__radio:focus{

@@ -358,7 +358,7 @@ table{
 }
 
 .form__h1{
-  grid-column: 2;
+  grid-column: 1 / -1;
   grid-row: 1;
   text-align: center;
   font-size: 2rem;
@@ -375,14 +375,14 @@ table{
 
 .modal__buttons__content{
   display: flex;
-  gap: .5rem;
+  flex-wrap: wrap;
+  column-gap: .5rem;
 }
 
 .modal__button{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
   margin-top: .5rem;
   box-sizing: border-box;
   padding: .5rem 1rem;
@@ -404,7 +404,6 @@ table{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
   margin-top: .5rem;
   box-sizing: border-box;
   padding: .5rem 1rem;
@@ -414,3 +413,37 @@ table{
   cursor: pointer;
   font-weight: 600;
 }
+
+@media (max-width: 1100px) {
+  .form__content{
+    grid-column: 1 /-1;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+  }
+  
+  .form{
+    grid-row: 2 / -1;
+  }
+}
+
+@media (max-width: 650px) {
+  .form__content{
+    grid-row: initial;
+    margin: 1rem 1rem 2rem 1rem;
+    padding: 1rem;
+  }
+
+  .form__h1{
+    grid-column: 1 / -1;
+    grid-row: 1;
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+    font-size: 1.5rem;
+  }
+
+  .form{
+    height: auto;
+  }
+}
+
