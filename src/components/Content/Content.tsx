@@ -48,22 +48,12 @@ type IFamilias = [{
     },
 }]
 
-type IIntegrantes = [{
-  _id: string,
-  nome: string,
-  dataNasc: string,
-  parentesco: string,
-  cpf: number,
-  fkFamilia: string,
-}]
-
 const Content = ({content, id}: IContentId) => {
   // ---------------------------------------------------------------------------- Variaveis -----------------------------------------------------------
 
   const token = localStorage.getItem('token') 
   const tokenValid = token ? token : 'nao'
   const [dataUser, setDataUser] = React.useState<Record<"master" | "equipe" | "saude", IUser[]> | null>(null)
-  const [dataIntegrante, setDataIntegrante] = React.useState<IIntegrantes | null>(null)
   const [urlIntegrante, setUrlIntegrante] = React.useState<string>('')
   const [options, setOptions] = React.useState(false)
   const [modalUpdate, setModalUpdate] = React.useState(false)
