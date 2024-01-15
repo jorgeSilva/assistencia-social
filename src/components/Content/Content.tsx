@@ -84,21 +84,11 @@ const Content = ({content, id}: IContentId) => {
     }
   })
 
-  const integrantes = UseFetch<IIntegrantes>(`https://backendassistenciasocial-production.up.railway.app/familia/integrante/show/${urlIntegrante}`, {
-      headers:{
-        'Authorization': `Bearer ${JSON.parse(tokenValid)}`
-      }
-  })
-
   const excluidos = UseFetch<IFamilias>(`https://backendassistenciasocial-production.up.railway.app/excluidos/show`, {
     headers:{
       'Authorization': `Bearer ${JSON.parse(tokenValid)}`
     }
   })
-
-  React.useEffect(() => {
-    integrantes.data && setDataIntegrante(integrantes.data)
-  }, [integrantes])
     
   // --------------------------------------------------------------------- Funções front-end --------------------------------------------------------------
 
@@ -195,7 +185,7 @@ const Content = ({content, id}: IContentId) => {
                 <h1 className={style.painel__container__table__h1}>Familias cadastradas no sistema.</h1> 
                 
                 {
-                  options && !modalDelete && !modalUpdate && !modalUpdate ?
+                  options && !modalDelete && !modalUpdate && !modalIntegrantes ?
                   <div className={style.modal__buttons__content}>
                     <button className={style.modal__button} onClick={() => setModalUpdate(!modalUpdate)}>Editar</button>
                     <button className={style.modal__button} onClick={() => setModalDelete(!modalDelete)}>Excluir</button>
@@ -207,7 +197,6 @@ const Content = ({content, id}: IContentId) => {
                     <button className={style.modal__button__disabled} disabled>Excluir</button>
                     <button className={style.modal__button__disabled} disabled>Integrantes</button>
                   </div>
-
                 }
                 <section className={style.painel__table__content}>
                   {
@@ -234,6 +223,19 @@ const Content = ({content, id}: IContentId) => {
                           <img src={X} alt="" />
                         </button>
                         <ModalActions id={urlIntegrante} type={"update"}/>
+                      </>
+                    )
+                    ||
+                    (
+                      modalIntegrantes && 
+                      <>
+                        <button className={style.modal__button__active} onClick={() => {
+                          setModalIntegrantes(false)
+                          setOptions(!options)
+                        }}>
+                          <img src={X} alt="" />
+                        </button>
+                        <ModalActions id={urlIntegrante} type={"integrantes"}/>
                       </>
                     )
                     ||
@@ -292,7 +294,7 @@ const Content = ({content, id}: IContentId) => {
                                 <th> <button onClick={() => handleClick(item)}> {item.nCasa}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.complemento}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.areaDeRisco === 'false' ? 'NÃO' : item.areaDeRisco}</button></th>
-                                <th> <button onClick={() => handleClick(item)}> {item.fkUserCad.nome}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.fkUserCad?.nome}</button></th>
                               </tr>
                             ))
                           }
@@ -538,7 +540,7 @@ const Content = ({content, id}: IContentId) => {
           &&
           <>
             <section className={style.form__content}>
-              <h1 className={style.form__h1}>Cadastre uma familia</h1>
+              <h1 className={style.form__h1}>Amplie sua equipe para coletar mais dados</h1>
 
               <div className={style.form}>
                 <Form id={id}/>  
@@ -554,7 +556,7 @@ const Content = ({content, id}: IContentId) => {
           &&
           <>
             <section className={style.form__content}>
-              <h1 className={style.form__h1}>Cadastre uma familia</h1>
+              <h1 className={style.form__h1}>Adicione o pessoal da saude para ajudar</h1>
 
               <div className={style.form}>
                 <Form id={id}/>  

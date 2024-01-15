@@ -25,6 +25,10 @@ type ICadContex = {
   error: string | null;
   msgSucces: string | null
   loading: boolean;
+  handleSenha: any;
+  handleConfirmSenha: any;
+  handleCadEquipe: any;
+  handleCadSaude: any;
 }
 
 const CadContext = React.createContext<ICadContex | null>(null)
@@ -55,6 +59,8 @@ export const CadProvider = ({children}: React.PropsWithChildren) => {
   const [nCasa, setNCasa]                   = React.useState<number | null>(null)
   const [residencia, setResidencia]         = React.useState<string | null>(null)
   const [areaRisco, setAreaRisco]           = React.useState<string | false>(false)
+  const [senha, setSenha]                   = React.useState<string | false>(false)
+  const [confirmSenha, setConfirmSenha]     = React.useState<string | false>(false)
   const [loading, setLoading] = React.useState<boolean>(false)
   const [error, setError] = React.useState<string | null>(null)
   const [msgSucces, setMsgSucces] = React.useState<string | null>(null)
@@ -136,6 +142,14 @@ export const CadProvider = ({children}: React.PropsWithChildren) => {
     setAreaRisco(e.target.value);
   }
 
+  const handleSenha = (e: any) => {
+    setSenha(e.target.value);
+  }
+
+  const handleConfirmSenha = (e: any) => {
+    setConfirmSenha(e.target.value);
+  }
+
   async function handleCadFamilia(e: any){
     e.preventDefault()
 
@@ -169,6 +183,42 @@ export const CadProvider = ({children}: React.PropsWithChildren) => {
     })
   }
 
+  async function handleCadEquipe(e: any){
+    e.preventDefault()
+
+    setLoading(true)
+    await api.post(`/usuario`, {
+      nome,
+      patamar: 'equipe',
+      cpf,
+      senha,
+      confirmSenha
+    }).then(({data}) => {
+      setMsgSucces(data.msg)
+    }).catch(e => setError(e.response.data.error))
+    .finally(() => {
+      setLoading(false)
+    })
+  }
+
+  async function handleCadSaude(e: any){
+    e.preventDefault()
+
+    setLoading(true)
+    await api.post(`/usuario`, {
+      nome,
+      patamar: 'saude',
+      cpf,
+      senha,
+      confirmSenha
+    }).then(({data}) => {
+      setMsgSucces(data.msg)
+    }).catch(e => setError(e.response.data.error))
+    .finally(() => {
+      setLoading(false)
+    })
+  }
+
   return <CadContext.Provider value={{
     handleNome, 
     handleCPF,
@@ -189,7 +239,11 @@ export const CadProvider = ({children}: React.PropsWithChildren) => {
     handleResidencia,
     handleAreaRisco,
     handleComplemento,
+    handleSenha,
+    handleConfirmSenha,
+    handleCadEquipe,
     handleCadFamilia,
+    handleCadSaude,
     error,
     msgSucces,
     loading

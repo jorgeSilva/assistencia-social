@@ -1,7 +1,6 @@
 import React from 'react'
 import style from './Form.module.css'
 import Input from  '../InputCad/Input'
-import { useProvider } from '../../context/loginContext';
 import { useProviderCad } from '../../context/cadContext';
 
 type IContentId = {
@@ -34,6 +33,16 @@ const Form = ({id}: IContentId) => {
     msgSucces,
     loading
   } = useProviderCad()  
+
+  const {
+    handleCadEquipe,
+    handleSenha,
+    handleConfirmSenha
+  } = useProviderCad()
+
+  const {
+    handleCadSaude
+  } = useProviderCad()
 
   return (
     <>
@@ -69,6 +78,66 @@ const Form = ({id}: IContentId) => {
               </button>
               :
               <button className={style.button__login} onClick={handleCadFamilia}>
+                Cadastrar
+              </button>
+            }
+
+            {
+              msgSucces && <p style={{color: 'darkgreen', padding: '.5rem'}}>*{msgSucces}*</p>
+            }
+
+            {
+              error && <p style={{color: 'red', padding: '.5rem'}}>*{error}*</p>
+            }
+          </form>
+        )
+        ||
+        (
+          id === 'equipe'
+          &&
+          <form action="" className={style.form__content}>
+            <Input type='text' name='Nome' id='nome' onChange={handleNome}/>
+            <Input type='number' name='CPF' id='cpf' onChange={handleCPF}/>
+            <Input type='text' name='Senha' id='senha' onChange={handleSenha}/>
+            <Input type='text' name='Confirmar senha' id='confirm' onChange={handleConfirmSenha}/>
+
+            {
+              loading ?
+              <button disabled className={style.button__login} onClick={handleCadEquipe}>
+                carregando...
+              </button>
+              :
+              <button className={style.button__login} onClick={handleCadEquipe}>
+                Cadastrar
+              </button>
+            }
+
+            {
+              msgSucces && <p style={{color: 'darkgreen', padding: '.5rem'}}>*{msgSucces}*</p>
+            }
+
+            {
+              error && <p style={{color: 'red', padding: '.5rem'}}>*{error}*</p>
+            }
+          </form>
+        )
+        ||
+        (
+          id === 'saude'
+          &&
+          <form action="" className={style.form__content}>
+            <Input type='text' name='Nome' id='nome' onChange={handleNome}/>
+            <Input type='number' name='CPF' id='cpf' onChange={handleCPF}/>
+            <Input type='text' name='Senha' id='senha' onChange={handleSenha}/>
+            <Input type='text' name='Confirmar senha' id='confirm' onChange={handleConfirmSenha}/>
+
+            {
+              loading ?
+              <button disabled className={style.button__login} onClick={handleCadSaude}>
+                carregando...
+              </button>
+              :
+              <button className={style.button__login} onClick={handleCadSaude}>
                 Cadastrar
               </button>
             }

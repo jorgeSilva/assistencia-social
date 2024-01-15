@@ -41,6 +41,36 @@ type IFamilias = {
   }
 }
 
+type IIntegrantes = [{
+  _id: string,
+  nome: string,
+  dataNasc: string,
+  parentesco: string,
+  cpf: number,
+  fkFamilia: {
+    _id: string,
+		nome: string,
+		cpf: number,
+		parentesco: string,
+		responsavel: true,
+		dataNasc: string,
+		nis: string,
+		inicio: string,
+		fim: string,
+		nFilhosMaior: number,
+		nFilhosMenor: number,
+		residencia: string,
+		idoso: boolean,
+		bpc: boolean,
+		contato: string,
+		rua: string,
+		bairro: string,
+		nCasa: number,
+		complemento: string,
+		areaDeRisco: string
+  }
+}]
+
 const ModalActions = ({id, type}: IModalType) => {
 
   // ------------------------------------------------------------- Variaveis da tela -----------------------------------------------------------------
@@ -78,6 +108,13 @@ const ModalActions = ({id, type}: IModalType) => {
     headers:{
       'Authorization': `Bearer ${JSON.parse(tokenValid)}`
     }
+  })
+
+
+  const integrantes = UseFetch<IIntegrantes>(`https://backendassistenciasocial-production.up.railway.app/familia/integrante/show/${id}`, {
+      headers:{
+        'Authorization': `Bearer ${JSON.parse(tokenValid)}`
+      }
   })
   
   async function handleUpdateFamilia(e: any) {
@@ -485,6 +522,69 @@ const ModalActions = ({id, type}: IModalType) => {
                   {
                     msgSuccess && <p style={{color: 'darkgreen', padding: '.5rem'}}>*{msgSuccess}*</p>
                   }
+                </>
+              )
+            }
+          </>
+        )
+        ||
+        (          
+          type === 'integrantes'
+          &&
+          <>
+            <h1 className={style.modal__h1}>Delete o registro de determinada familia</h1>
+            {
+              (
+                integrantes.loading && <p style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>carregando...</p>
+              )
+              ||
+              (
+                integrantes.data &&
+                <>
+                  <table className={style.modal__table}>
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Parentesco</th>
+                        <th>Data nascimento</th>
+                        <th>Familia pertencente</th>
+                      </tr>
+                    </thead>
+                    
+                    {
+                      (
+                        integrantes.loading && <p>carregando...</p>
+                      )
+
+                      ||
+
+                      <tbody>
+                        {
+                            integrantes.data && integrantes.data.map(item => (
+                              <tr key={item.cpf}>
+                                <th> <button>{item.nome}</button></th>
+                                <th> <button>{item.cpf}</button></th>
+                                <th> <button>{item.parentesco}</button></th>
+                                <th> <button>{item.dataNasc}</button></th>
+                                <th> <button>{item.fkFamilia.nome} {item.fkFamilia.cpf}</button></th>
+                              </tr>
+                            ))
+                          }
+                      </tbody>
+                    }
+                  </table>
+
+                  {/* {
+                    loadingUP ?
+                    <button disabled className={style.buttom__delete__update} onClick={handleDeleteFamilia}>Deletando registro</button>
+                    :
+                    <button className={style.buttom__delete__update} onClick={handleDeleteFamilia}>Excluir Cadastro</button>
+                  }
+
+                  {
+                    msgSuccess && <p style={{color: 'darkgreen', padding: '.5rem'}}>*{msgSuccess}*</p>
+                  } */}
                 </>
               )
             }
