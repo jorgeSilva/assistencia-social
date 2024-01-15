@@ -23,6 +23,7 @@ type ICadContex = {
   handleComplemento: any;
   handleCadFamilia: any;
   error: string | null;
+  msgSucces: string | null
   loading: boolean;
 }
 
@@ -56,6 +57,7 @@ export const CadProvider = ({children}: React.PropsWithChildren) => {
   const [areaRisco, setAreaRisco]           = React.useState<string | false>(false)
   const [loading, setLoading] = React.useState<boolean>(false)
   const [error, setError] = React.useState<string | null>(null)
+  const [msgSucces, setMsgSucces] = React.useState<string | null>(null)
   const url = document.URL.split("/")[4]
   
   const handleNome = (e: any) => {
@@ -160,7 +162,7 @@ export const CadProvider = ({children}: React.PropsWithChildren) => {
       areaDeRisco: areaRisco,
       fkUserCad: url
     }).then(({data}) => {
-      console.log(data)
+      setMsgSucces(data.msg)
     }).catch(e => setError(e.response.data.error))
     .finally(() => {
       setLoading(false)
@@ -189,6 +191,7 @@ export const CadProvider = ({children}: React.PropsWithChildren) => {
     handleComplemento,
     handleCadFamilia,
     error,
+    msgSucces,
     loading
     }}>
     {children}

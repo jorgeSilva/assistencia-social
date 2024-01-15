@@ -39,7 +39,13 @@ type IFamilias = [{
 		nCasa: number,
 		complemento: string,
 		areaDeRisco: string,
-		fkUserCad: string,
+		fkUserCad: {
+      cpf: number;
+      nome: string;
+      patamar: string;
+      senha: string;
+      _id: string;
+    },
 }]
 
 type IIntegrantes = [{
@@ -286,7 +292,7 @@ const Content = ({content, id}: IContentId) => {
                                 <th> <button onClick={() => handleClick(item)}> {item.nCasa}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.complemento}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.areaDeRisco === 'false' ? 'NÃO' : item.areaDeRisco}</button></th>
-                                <th> <button onClick={() => handleClick(item)}> {item.fkUserCad}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.fkUserCad.nome}</button></th>
                               </tr>
                             ))
                           }
@@ -465,7 +471,6 @@ const Content = ({content, id}: IContentId) => {
                         <th>Complemento</th>
                         <th>Area de Risco</th>
                         <th>Quem cadastrou ?</th>
-                        <th>Nome integrante</th>
                       </tr>
                     </thead>
 
@@ -497,7 +502,7 @@ const Content = ({content, id}: IContentId) => {
                               <th> <button onClick={() => handleClick(item)}> {item.nCasa}</button></th>
                               <th> <button onClick={() => handleClick(item)}> {item.complemento}</button></th>
                               <th> <button onClick={() => handleClick(item)}> {item.areaDeRisco === 'false' ? 'NÃO' : item.areaDeRisco}</button></th>
-                              <th> <button onClick={() => handleClick(item)}> {item.fkUserCad}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {item.fkUserCad.nome}</button></th>
                             </tr>
                           ))
                         }

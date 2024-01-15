@@ -68,6 +68,7 @@ const ModalActions = ({id, type}: IModalType) => {
   const [areaRisco, setAreaRisco]           = React.useState<string | false>(false)
   const [loadingUP, setLoadingUP] = React.useState<boolean>(false)
   const [errorUP, setErrorUP] = React.useState<string | null>(null)
+  const [msgSuccess, setMsgSuccess] = React.useState<string | null>(null)
   const [idFamilia, setIdFamilia] = React.useState<string>('')
   const url = document.URL.split("/")[4]
 
@@ -111,7 +112,8 @@ const ModalActions = ({id, type}: IModalType) => {
       }
     }
     ).then(({data}: any) => {
-      console.log(data)
+      setMsgSuccess('')
+      setMsgSuccess('Usuario do sistema atualizado com sucesso!')
     }).catch((e: any) => console.log(e))
     .finally(() => {
       setLoadingUP(false)
@@ -149,7 +151,7 @@ const ModalActions = ({id, type}: IModalType) => {
         headers:{
           'Authorization': `Bearer ${JSON.parse(tokenValid)}`
         }
-      }).then(r => console.log(r)).catch(e => console.log(e))
+      }).then(({data}) => setMsgSuccess(data.msg)).catch(e => console.log(e))
     }).catch(e => console.log(e))
     .finally(() => setLoadingUP(false))
   }
@@ -322,7 +324,16 @@ const ModalActions = ({id, type}: IModalType) => {
                     }
                   </table>
 
-                  <button className={style.buttom__delete__update} onClick={handleUpdateFamilia}>Salvar edição</button>
+                  {
+                    loadingUP ?
+                    <button disabled className={style.buttom__delete__update} onClick={handleUpdateFamilia}>Salvando edição</button>
+                    :
+                    <button className={style.buttom__delete__update} onClick={handleUpdateFamilia}>Salvar edição</button>
+                  }
+
+                  {
+                    msgSuccess && <p style={{color: 'darkgreen', padding: '.5rem'}}>*{msgSuccess}*</p>
+                  }
                 </>
               )
             }
@@ -464,7 +475,16 @@ const ModalActions = ({id, type}: IModalType) => {
                     }
                   </table>
 
-                  <button className={style.buttom__delete__update} onClick={handleDeleteFamilia}>Excluir Cadastro</button>
+                  {
+                    loadingUP ?
+                    <button disabled className={style.buttom__delete__update} onClick={handleDeleteFamilia}>Deletando registro</button>
+                    :
+                    <button className={style.buttom__delete__update} onClick={handleDeleteFamilia}>Excluir Cadastro</button>
+                  }
+
+                  {
+                    msgSuccess && <p style={{color: 'darkgreen', padding: '.5rem'}}>*{msgSuccess}*</p>
+                  }
                 </>
               )
             }

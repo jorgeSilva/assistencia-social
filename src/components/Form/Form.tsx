@@ -31,6 +31,7 @@ const Form = ({id}: IContentId) => {
     handleAreaRisco,
     handleCadFamilia,
     error,
+    msgSucces,
     loading
   } = useProviderCad()  
 
@@ -70,6 +71,10 @@ const Form = ({id}: IContentId) => {
               <button className={style.button__login} onClick={handleCadFamilia}>
                 Cadastrar
               </button>
+            }
+
+            {
+              msgSucces && <p style={{color: 'darkgreen', padding: '.5rem'}}>*{msgSucces}*</p>
             }
 
             {
