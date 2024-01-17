@@ -537,7 +537,7 @@ const Sidebar = ({patamar, exit}: IContent) => {
           &&
           <>
             <div className={style.sidebar__content__patamar}>
-              <div>
+            <div className={style.sidebar__content__patamar__search}>
                 {
                   id === 'controle' ?
                   <button id='controle' className={style.sidebar__painel__controle__button__active} onClick={handleClick}>
@@ -556,7 +556,54 @@ const Sidebar = ({patamar, exit}: IContent) => {
 
                 {
                   id === 'pesquisar' ?
-                  <Input idButton={buttonID} id='pesquisar' type='text' name='Pesquisar'/>
+                  <>
+                    <div className={style.buttons__options__container}>
+                      <Input idButton={buttonID} onChange={({target}) => setValueSearch(target.value)} id='pesquisar' type='text' name='Pesquisar'/>
+                    </div>
+
+                    <div className={style.buttons__options}>
+                      <button onClick={() => setButtonID('nome')}>Nome</button>
+                      <button onClick={() => setButtonID('cpf')}>CPF</button>
+                      <button onClick={() => setButtonID('parentesco')}>Parentesco</button>
+                      <button onClick={() => setButtonID('responsavel')}>Responsavel</button>
+                      {
+                        buttonID === 'responsavel' &&
+                        <div>
+                          <button onClick={() => setButtonBoolean(true)} >SIM</button>
+                          <button onClick={() => setButtonBoolean(false)} >NÃO</button>
+                        </div>
+                      }
+                      <button onClick={() => setButtonID('dataNascimento')}>Data nascimento</button>
+                      <button onClick={() => setButtonID('nis')}>NIS</button>
+                      <button onClick={() => setButtonID('dataInicio')}>Data inicio</button>
+                      <button onClick={() => setButtonID('dataFim')}>Data fim</button>
+                      <button onClick={() => setButtonID('nFilhosMaior')}>N° filhos de maior</button>
+                      <button onClick={() => setButtonID('nFilhosMenor')}>N° filhos de menor</button>
+                      <button onClick={() => setButtonID('idoso')}>Idoso</button>
+                      {
+                        buttonID === 'idoso' &&
+                        <div>
+                          <button onClick={() => setButtonBoolean(true)} >SIM</button>
+                          <button onClick={() => setButtonBoolean(false)} >NÃO</button>
+                        </div>
+                      }
+                      <button onClick={() => setButtonID('bpc')}>BPC</button>
+                      {
+                        buttonID === 'bpc' &&
+                        <div>
+                          <button onClick={() => setButtonBoolean(true)} >SIM</button>
+                          <button onClick={() => setButtonBoolean(false)} >NÃO</button>
+                        </div>
+                      }
+                      <button onClick={() => setButtonID('telefone')}>Telefone</button>
+                      <button onClick={() => setButtonID('rua')}>Rua</button>
+                      <button onClick={() => setButtonID('bairro')}>Bairro</button>
+                      <button onClick={() => setButtonID('nCasa')}>N° Casa</button>
+                      <button onClick={() => setButtonID('complemento')}>Complemento</button>
+                      <button onClick={() => setButtonID('residencia')}>Residencia</button>
+                      <button onClick={() => setButtonID('areaRisco')}>Area de risco</button>
+                    </div>
+                  </>
                   :
                   <button id='pesquisar' className={style.sidebar__painel__controle__button} onClick={handleClick}>
                     <span id='pesquisar' className={style.sidebar__painel__controle}>
