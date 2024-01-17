@@ -4,6 +4,7 @@ import UseFetch from '../../service/useFetch';
 import ModalActions from '../Modal/ModalActions';
 import X from '../../assets/x-circle-fill.svg'
 import Form from '../Form/Form';
+import { useProviderSidebar } from '../../context/sidebarContext';
 
 type IContentId = {
   content: string;
@@ -59,6 +60,9 @@ const Content = ({content, id}: IContentId) => {
   const [modalUpdate, setModalUpdate] = React.useState(false)
   const [modalDelete, setModalDelete] = React.useState(false)
   const [modalIntegrantes, setModalIntegrantes] = React.useState(false)
+  const {
+    familiaFilter
+  } = useProviderSidebar()
 
   // --------------------------------------------------------------------------- Chamadas API ----------------------------------------------------------
 
@@ -365,9 +369,122 @@ const Content = ({content, id}: IContentId) => {
               <div className={style.painel__container__table}>
                 <h1>Pesquise por familias cadastradas no sistema.</h1>
 
-                <div className={style.painel__table__content}>
-                  dasdsadsad
-                </div>
+                {
+                  options && !modalDelete && !modalUpdate && !modalIntegrantes ?
+                  <div className={style.modal__buttons__content}>
+                    <button className={style.modal__button} onClick={() => setModalUpdate(!modalUpdate)}>Editar</button>
+                    <button className={style.modal__button} onClick={() => setModalDelete(!modalDelete)}>Excluir</button>
+                    <button className={style.modal__button} onClick={() => setModalIntegrantes(!modalIntegrantes)}>Integrantes</button>
+                  </div>
+                  :
+                  <div className={style.modal__buttons__content}>
+                    <button className={style.modal__button__disabled} disabled>Editar</button>
+                    <button className={style.modal__button__disabled} disabled>Excluir</button>
+                    <button className={style.modal__button__disabled} disabled>Integrantes</button>
+                  </div>
+                }
+                <section className={style.painel__table__content}>
+                  {
+                    (
+                      modalDelete && 
+                      <>
+                        <button className={style.modal__button__active} onClick={() => {
+                          setModalDelete(false)
+                          setOptions(!options)
+                        }}>
+                          <img src={X} alt="" />
+                        </button>
+                        <ModalActions id={urlIntegrante} type={'delete'}/> 
+                      </>
+                    )
+                    ||
+                    (
+                      modalUpdate && 
+                      <>
+                        <button className={style.modal__button__active} onClick={() => {
+                          setModalUpdate(false)
+                          setOptions(!options)
+                        }}>
+                          <img src={X} alt="" />
+                        </button>
+                        <ModalActions id={urlIntegrante} type={"update"}/>
+                      </>
+                    )
+                    ||
+                    (
+                      modalIntegrantes && 
+                      <>
+                        <button className={style.modal__button__active} onClick={() => {
+                          setModalIntegrantes(false)
+                          setOptions(!options)
+                        }}>
+                          <img src={X} alt="" />
+                        </button>
+                        <ModalActions id={urlIntegrante} type={"integrantes"}/>
+                      </>
+                    )
+                    ||
+                    (
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Nome</th>
+                          <th>CPF</th>
+                          <th>Parentesco</th>
+                          <th>Responsavel</th>
+                          <th>Data nascimento</th>
+                          <th>NISS</th>
+                          <th>Inicio</th>
+                          <th>Fim</th>
+                          <th>N° Filhos maior</th>
+                          <th>N° Filhos menor</th>
+                          <th>Residencia</th>
+                          <th>Idoso</th>
+                          <th>BPC</th>
+                          <th>Contato</th>
+                          <th>Rua</th>
+                          <th>Bairro</th>
+                          <th>N° Casa</th>
+                          <th>Complemento</th>
+                          <th>Area de Risco</th>
+                          <th>Quem cadastrou ?</th>
+                        </tr>
+                      </thead>
+                      
+                      {
+                        <tbody>
+                          {
+                            familiaFilter && familiaFilter.map(item => (
+                              <tr key={item.cpf}>
+                                <th> <button onClick={() => handleClick(item)}> {item.nome}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.cpf}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.parentesco}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.responsavel === true ? 'SIM' : 'NÃO' }</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.dataNasc}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.nis}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.inicio}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.fim}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.nFilhosMaior}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.nFilhosMenor}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.residencia}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.idoso === true ? 'SIM' : 'NÃO'}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.bpc === true ? 'SIM' : 'NÃO'}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.contato}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.rua}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.bairro}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.nCasa}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.complemento}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.areaDeRisco === 'false' ? 'NÃO' : item.areaDeRisco}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {item.fkUserCad?.nome}</button></th>
+                              </tr>
+                            ))
+                          }
+                        </tbody>
+                      }
+                    </table>
+                    )
+                  }
+                </section>
               </div>
             </section>
           </>

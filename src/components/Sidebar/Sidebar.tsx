@@ -14,16 +14,165 @@ import IconExit from '../../assets/exit.svg'
 import IconListaExcluidos from '../../assets/listaExcluido.svg'
 import IconListaExcluidosBlack from '../../assets/listaExcluidoBlack.svg'
 import Input from '../Search/Input';
+import UseFetch from '../../service/useFetch';
+import api from '../../service/api';
+import {format, parseISO} from 'date-fns'
 
 type IContent = {
   patamar: string | null;
   exit: any
 }
 
-const Sidebar = ({patamar, exit}: IContent) => {  
-  const {handleClick, id} = useProviderSidebar()
-  const [buttonToggle, setButtonToggle] = React.useState(false)
+type IFamilias = [{
+  _id: string,
+  nome: string,
+  cpf: string,
+  parentesco: string,
+  responsavel: boolean,
+  dataNasc: string,
+  nis: string,
+  inicio: string,
+  fim: string,
+  nFilhosMaior: number,
+  nFilhosMenor: number,
+  residencia: string,
+  idoso: boolean,
+  bpc: boolean,
+  contato: string,
+  rua: string,
+  bairro: string,
+  nCasa: number,
+  complemento: string,
+  areaDeRisco: string,
+  fkUserCad: {
+    cpf: number;
+    nome: string;
+    patamar: string;
+    senha: string;
+    _id: string;
+  },
+}]
 
+const Sidebar = ({patamar, exit}: IContent) => {  
+  const token = localStorage.getItem('token') 
+  const tokenValid = token ? token : 'nao'
+  const {handleClick, id, setFamilia} = useProviderSidebar()
+  const [buttonToggle, setButtonToggle] = React.useState(false)
+  const [buttonID, setButtonID] = React.useState<string | null>(null)
+  const [buttonBoolean, setButtonBoolean] = React.useState<boolean | null>(null)
+  const [buttonOptions, setButtonOptions] = React.useState<string | null>(null)
+  const [valueSearch, setValueSearch] = React.useState<string | number | null>(null)
+
+  const {data, loading, error} = UseFetch<IFamilias>(`https://backendassistenciasocial-production.up.railway.app/familia/show`, {
+    headers:{
+      'Authorization': `Bearer ${JSON.parse(tokenValid)}`
+    }
+  })
+
+  function formatarDataBrasileira(dataString: string): string {
+    const data = new Date(dataString);
+    const dia = String(data.getUTCDate()).padStart(2, '0');
+    const mes = String(data.getUTCMonth() + 1).padStart(2, '0'); // O mês é baseado em zero
+    const ano = data.getUTCFullYear();
+  
+    return `${dia}/${mes}/${ano}`;
+  }
+
+  const FamiliaFilter = React.useMemo(() => {
+    const lowerCase = typeof valueSearch === 'string' ? valueSearch.toLocaleLowerCase(): valueSearch
+
+    if(typeof lowerCase === 'string' && data && buttonID === 'nome'){
+      return data?.filter((item) => item.nome.toLocaleLowerCase().includes(lowerCase))
+    }
+    
+    else if(typeof lowerCase === 'string' && data && buttonID === 'cpf'){
+      return data?.filter((item) => String(item.cpf).toLocaleLowerCase().includes(lowerCase))
+    }
+    
+    else if(typeof lowerCase === 'string' && data && buttonID === 'parentesco'){
+      return data?.filter((item) => String(item.parentesco).toLocaleLowerCase().includes(lowerCase))
+    }
+    
+    else if(typeof lowerCase === 'string' && data && buttonID === 'responsavel' && buttonBoolean === false ){
+      return data?.filter((item) => item.responsavel === false && String('NÃO').toLocaleLowerCase().includes(lowerCase))
+    }
+    
+    else if(typeof lowerCase === 'string' && data && buttonID === 'responsavel' && buttonBoolean === true){
+      return data?.filter((item) => item.responsavel === true && String('SIM').toLocaleLowerCase().includes(lowerCase))
+    }
+    
+    else if(typeof lowerCase === 'string' && data && buttonID === 'dataNascimento'){
+      return data?.filter((item) => formatarDataBrasileira(item.dataNasc).toLocaleLowerCase().includes(lowerCase))
+    }
+    
+    else if(typeof lowerCase === 'string' && data && buttonID === 'nis'){
+      return data?.filter((item) => String(item.nis).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'dataInicio'){
+      return data?.filter((item) => formatarDataBrasileira(item.inicio).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'dataFim'){
+      return data?.filter((item) => formatarDataBrasileira(item.fim).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'nFilhosMaior'){
+      return data?.filter((item) => String(item.nFilhosMaior).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'nFilhosMenor'){
+      return data?.filter((item) => String(item.nFilhosMenor).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'idoso' && buttonBoolean === false ){
+      return data?.filter((item) => item.idoso === false && String('NÃO').toLocaleLowerCase().includes(lowerCase))
+    }
+    
+    else if(typeof lowerCase === 'string' && data && buttonID === 'idoso' && buttonBoolean === true){
+      return data?.filter((item) => item.idoso === true && String('SIM').toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'bpc' && buttonBoolean === false ){
+      return data?.filter((item) => item.bpc === false && String('NÃO').toLocaleLowerCase().includes(lowerCase))
+    }
+    
+    else if(typeof lowerCase === 'string' && data && buttonID === 'bpc' && buttonBoolean === true){
+      return data?.filter((item) => item.bpc === true && String('SIM').toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'telefone'){
+      return data?.filter((item) => String(item.contato).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'rua'){
+      return data?.filter((item) => String(item.rua).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'bairro'){
+      return data?.filter((item) => String(item.bairro).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'nCasa'){
+      return data?.filter((item) => String(item.nCasa).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'complemento'){
+      return data?.filter((item) => String(item.complemento).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'residencia'){
+      return data?.filter((item) => String(item.residencia).toLocaleLowerCase().includes(lowerCase))
+    }
+
+    else if(typeof lowerCase === 'string' && data && buttonID === 'areaRisco'){
+      return data?.filter((item) => String(item.areaDeRisco).toLocaleLowerCase().includes(lowerCase))
+    }
+
+  }, [valueSearch])
+
+  setFamilia(FamiliaFilter)
+  
   return (
     <div className={style.sidebar__container}>
       <p className={style.sidebar__text__apresentation}>Systech - Assistencia Social</p>
@@ -34,7 +183,7 @@ const Sidebar = ({patamar, exit}: IContent) => {
           &&
           <>
             <div className={style.sidebar__content__patamar}>
-              <div>
+              <div className={style.sidebar__content__patamar__search}>
                 {
                   id === 'controle' ?
                   <button id='controle' className={style.sidebar__painel__controle__button__active} onClick={handleClick}>
@@ -53,7 +202,92 @@ const Sidebar = ({patamar, exit}: IContent) => {
 
                 {
                   id === 'pesquisar' ?
-                  <Input id='pesquisar' type='text' name='Pesquisar'/>
+                  <>
+                  <div className={style.buttons__options__container}>
+                    <Input idButton={buttonID} onChange={({target}) => setValueSearch(target.value)} id='pesquisar' type='text' name='Pesquisar'/>
+                  </div>
+
+                  <div className={style.buttons__options}>
+                    <button onClick={() => setButtonID('nome')}>Nome</button>
+                    <button onClick={() => setButtonID('cpf')}>CPF</button>
+                    <button onClick={() => setButtonID('parentesco')}>Parentesco</button>
+                    <button onClick={() => setButtonID('responsavel')}>Responsavel</button>
+                    {
+                      buttonID === 'responsavel' &&
+                      <>
+                        <br />
+                        <br />
+                        <button onClick={() => setButtonBoolean(true)} >SIM</button>
+                        <button onClick={() => setButtonBoolean(false)} >NÃO</button>
+                        <br />
+                        <br />
+                      </>
+                    }
+                    <button onClick={() => setButtonID('dataNascimento')}>Data nascimento</button>
+                    <button onClick={() => setButtonID('nis')}>NIS</button>
+                    <button onClick={() => setButtonID('dataInicio')}>Data inicio</button>
+                    <button onClick={() => setButtonID('dataFim')}>Data fim</button>
+                    <button onClick={() => setButtonID('nFilhosMaior')}>N° filhos de maior</button>
+                    <button onClick={() => setButtonID('nFilhosMenor')}>N° filhos de menor</button>
+                    <button onClick={() => setButtonID('idoso')}>Idoso</button>
+                    {
+                      buttonID === 'idoso' &&
+                      <>
+                        <br />
+                        <br />
+                        <button onClick={() => setButtonBoolean(true)} >SIM</button>
+                        <button onClick={() => setButtonBoolean(false)} >NÃO</button>
+                        <br />
+                        <br />
+                      </>
+                    }
+                    <button onClick={() => setButtonID('bpc')}>BPC</button>
+                    {
+                      buttonID === 'bpc' &&
+                      <>
+                        <br />
+                        <br />
+                        <button onClick={() => setButtonBoolean(true)} >SIM</button>
+                        <button onClick={() => setButtonBoolean(false)} >NÃO</button>
+                        <br />
+                        <br />
+                      </>
+                    }
+                    <button onClick={() => setButtonID('telefone')}>Telefone</button>
+                    <button onClick={() => setButtonID('rua')}>Rua</button>
+                    <button onClick={() => setButtonID('bairro')}>Bairro</button>
+                    <button onClick={() => setButtonID('nCasa')}>N° Casa</button>
+                    <button onClick={() => setButtonID('complemento')}>Complemento</button>
+                    <button onClick={() => setButtonID('residencia')}>Residencia</button>
+                    <button onClick={() => setButtonID('areaRisco')}>Area de risco</button>
+
+                    {/* {
+                      FamiliaFilter?.map((item) => (
+                        <>
+                          <p>{item.nome}</p>
+                          <p>{item.cpf}</p>
+                          <p>{item.parentesco}</p>
+                          <p>{item.responsavel ? 'SIM': 'NÃO'}</p>
+                          <p>{formatarDataBrasileira(item.dataNasc)}</p>
+                          <p>{item.nis}</p>
+                          <p>{formatarDataBrasileira(item.inicio)}</p>
+                          <p>{formatarDataBrasileira(item.fim)}</p>
+                          <p>{item.nFilhosMaior}</p>
+                          <p>{item.nFilhosMenor}</p>
+                          <p>{item.idoso ? 'SIM': 'NÃO'}</p>
+                          <p>{item.bpc ? 'SIM': 'NÃO'}</p>
+                          <p>{item.contato}</p>
+                          <p>{item.rua}</p>
+                          <p>{item.bairro}</p>
+                          <p>{item.nCasa}</p>
+                          <p>{item.complemento}</p>
+                          <p>{item.residencia}</p>
+                          <p>{item.areaDeRisco}</p>
+                        </>
+                      ))
+                    } */}
+                  </div>
+                  </>
                   :
                   <button id='pesquisar' className={style.sidebar__painel__controle__button} onClick={handleClick}>
                     <span id='pesquisar' className={style.sidebar__painel__controle}>
@@ -197,7 +431,7 @@ const Sidebar = ({patamar, exit}: IContent) => {
 
                         {
                           id === 'pesquisar' ?
-                          <Input id='pesquisar' type='text' name='Pesquisar'/>
+                          <Input idButton={buttonID} id='pesquisar' type='text' name='Pesquisar'/>
                           :
                           <button id='pesquisar' style={{marginTop: "1rem"}} className={style.sidebar__painel__controle__button} onClick={handleClick}>
                             <span id='pesquisar' className={style.sidebar__painel__controle}>
@@ -316,7 +550,7 @@ const Sidebar = ({patamar, exit}: IContent) => {
 
                 {
                   id === 'pesquisar' ?
-                  <Input id='pesquisar' type='text' name='Pesquisar'/>
+                  <Input idButton={buttonID} id='pesquisar' type='text' name='Pesquisar'/>
                   :
                   <button id='pesquisar' className={style.sidebar__painel__controle__button} onClick={handleClick}>
                     <span id='pesquisar' className={style.sidebar__painel__controle}>
@@ -426,7 +660,7 @@ const Sidebar = ({patamar, exit}: IContent) => {
 
                         {
                           id === 'pesquisar' ?
-                          <Input id='pesquisar' type='text' name='Pesquisar'/>
+                          <Input idButton={buttonID} id='pesquisar' type='text' name='Pesquisar'/>
                           :
                           <button id='pesquisar' style={{marginTop: "1rem"}} className={style.sidebar__painel__controle__button} onClick={handleClick}>
                             <span id='pesquisar' className={style.sidebar__painel__controle}>
@@ -574,7 +808,7 @@ const Sidebar = ({patamar, exit}: IContent) => {
 
                         {
                           id === 'pesquisar' ?
-                          <Input id='pesquisar' type='text' name='Pesquisar'/>
+                          <Input idButton={buttonID} id='pesquisar' type='text' name='Pesquisar'/>
                           :
                           <button id='pesquisar' style={{marginTop: "1rem"}} className={style.sidebar__painel__controle__button} onClick={handleClick}>
                             <span id='pesquisar' className={style.sidebar__painel__controle}>

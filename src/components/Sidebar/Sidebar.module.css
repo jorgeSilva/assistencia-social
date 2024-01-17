@@ -20,11 +20,14 @@
   padding-top: 6rem;
 }
 
-.sidebar__content__patamar div{
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.sidebar__content__patamar__search{
+  display: grid;
+  grid-template-columns: minmax(20px, auto) minmax(20px, auto);
+  grid-template-rows: minmax(20px, auto) minmax(20px, auto);
+
+  gap: .5rem 1rem ;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .sidebar__painel__controle__button__active{
@@ -163,14 +166,6 @@
   .sidebar__painel__controle__button{
     padding: 0 .5rem 0 0;
     font-size: .85rem;
-  }
-}
-
-@media (max-width: 1360px) {
-  .sidebar__content__patamar div{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
   }
 }
 
@@ -331,4 +326,17 @@
     padding: 1rem;
     border-radius: 1.5rem;
   }
+}
+
+.buttons__options__container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.buttons__options{
+  grid-column: 1 / -1;
+  grid-row: 2;
 }

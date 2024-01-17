@@ -1,9 +1,11 @@
 import React from 'react'
 import style from './style.module.css'
 
-type Input = React.ComponentProps<'input'> 
+type Input = React.ComponentProps<'input'>&{
+  idButton: string | null;
+}
 
-const Input = ({...props}: Input) => {
+const Input = ({idButton, ...props}: Input) => {
 
   return (
     <>
