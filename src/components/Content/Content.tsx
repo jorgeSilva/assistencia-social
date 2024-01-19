@@ -110,6 +110,8 @@ const Content = ({content, id}: IContentId) => {
     data && patamarSelect(data)
   }, [data])
   
+  console.log(dataUser);
+
   return (
     <>
       {
@@ -135,7 +137,7 @@ const Content = ({content, id}: IContentId) => {
                           (loading &&  <p>carregando... <span className={style.loader}></span> <span className={style.loader}></span></p>
                           ) 
                           ||
-                          (new Array(dataUser)[0]?.master.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
+                          (new Array(dataUser)[0]?.master.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome ? item[0].nome : 'Nenhum cadastrado ainda.'  }</p> ))
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -149,7 +151,12 @@ const Content = ({content, id}: IContentId) => {
                         {
                           (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.equipe.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
+                          (
+                            new Array(dataUser)[0]?.equipe.length !== 0 ?
+                            new Array(dataUser)[0]?.equipe.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> )
+                            :
+                            <p>Ninguem cadastrado ainda</p>
+                          )
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -163,7 +170,12 @@ const Content = ({content, id}: IContentId) => {
                         {
                           (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.saude.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
+                          (
+                            new Array(dataUser)[0]?.saude.length !== 0 ?
+                            new Array(dataUser)[0]?.saude.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> )
+                            :
+                            <p>Ninguem cadastrado ainda</p>
+                          )
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -340,7 +352,12 @@ const Content = ({content, id}: IContentId) => {
                         {
                           (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.equipe.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
+                          (
+                            new Array(dataUser)[0]?.equipe.length !== 0 ?
+                            new Array(dataUser)[0]?.equipe.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> )
+                            :
+                            <p>Ninguem cadastrado ainda</p>
+                          )
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -354,7 +371,12 @@ const Content = ({content, id}: IContentId) => {
                         {
                           (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.saude.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
+                          (
+                            new Array(dataUser)[0]?.saude.length !== 0 ?
+                            new Array(dataUser)[0]?.saude.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> )
+                            :
+                            <p>Ninguem cadastrado ainda</p>
+                          )
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -527,7 +549,12 @@ const Content = ({content, id}: IContentId) => {
                         {
                           (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.equipe.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
+                          (
+                            new Array(dataUser)[0]?.equipe.length !== 0 ?
+                            new Array(dataUser)[0]?.equipe.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> )
+                            :
+                            <p>Ninguem cadastrado ainda</p>
+                          )
                           ||
                           (error && <p>{error}</p> )
                         }
@@ -541,7 +568,12 @@ const Content = ({content, id}: IContentId) => {
                         {
                           (loading && <p>carregando... <span className={style.loader}></span></p>)
                           ||
-                          (new Array(dataUser)[0]?.saude.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> ))
+                          (
+                            new Array(dataUser)[0]?.saude.length !== 0 ?
+                            new Array(dataUser)[0]?.saude.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> )
+                            :
+                            <p>Ninguem cadastrado ainda</p>
+                          )
                           ||
                           (error && <p>{error}</p> )
                         }
