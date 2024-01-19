@@ -119,7 +119,6 @@ p, h1, h2, h3, h4{
   box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
 }
 
-
 @media (max-width: 1440px) {
   .sidebar__painel__controle{
     height: 32px;

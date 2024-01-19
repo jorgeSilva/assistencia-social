@@ -2,7 +2,7 @@
   display: grid;
   height: 100vh;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: minmax(20px, 200px) minmax(20px, auto) minmax(20px, auto);
   gap: 1rem;
   transition: .3s ease;
   position: relative;
@@ -181,6 +181,7 @@
     display: flex;
     flex-direction: column;
     grid-template-columns: initial;
+    height: 100%;
   }
 
   .painel__content{

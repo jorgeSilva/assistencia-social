@@ -106,11 +106,19 @@ const Content = ({content, id}: IContentId) => {
     setOptions(!options)
   }
 
+  function formatarDataBrasileira(dataString: string): string {
+    const data = new Date(dataString);
+    const dia = String(data.getUTCDate()).padStart(2, '0');
+    const mes = String(data.getUTCMonth() + 1).padStart(2, '0'); // O mês é baseado em zero
+    const ano = data.getUTCFullYear();
+  
+    return `${dia}/${mes}/${ano}`;
+  }
+
   React.useEffect(() => {
     data && patamarSelect(data)
   }, [data])
   
-  console.log(dataUser);
 
   return (
     <>
@@ -285,10 +293,10 @@ const Content = ({content, id}: IContentId) => {
                                 <th> <button onClick={() => handleClick(item)}> {item.cpf}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.parentesco}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.responsavel === true ? 'SIM' : 'NÃO' }</button></th>
-                                <th> <button onClick={() => handleClick(item)}> {item.dataNasc}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.dataNasc)}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.nis}</button></th>
-                                <th> <button onClick={() => handleClick(item)}> {item.inicio}</button></th>
-                                <th> <button onClick={() => handleClick(item)}> {item.fim}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.inicio)}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.fim)}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.nFilhosMaior}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.nFilhosMenor}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.residencia}</button></th>
@@ -389,7 +397,7 @@ const Content = ({content, id}: IContentId) => {
 
             <section className='painel__familias'>
               <div className={style.painel__container__table}>
-                <h1>Pesquise por familias cadastradas no sistema.</h1>
+                <h1 className={style.painel__container__table__h1}>Pesquise por familias cadastradas no sistema.</h1>
 
                 {
                   options && !modalDelete && !modalUpdate && !modalIntegrantes ?
@@ -482,10 +490,10 @@ const Content = ({content, id}: IContentId) => {
                                 <th> <button onClick={() => handleClick(item)}> {item.cpf}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.parentesco}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.responsavel === true ? 'SIM' : 'NÃO' }</button></th>
-                                <th> <button onClick={() => handleClick(item)}> {item.dataNasc}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.dataNasc)}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.nis}</button></th>
-                                <th> <button onClick={() => handleClick(item)}> {item.inicio}</button></th>
-                                <th> <button onClick={() => handleClick(item)}> {item.fim}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.inicio)}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.fim)}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.nFilhosMaior}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.nFilhosMenor}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.residencia}</button></th>
@@ -525,7 +533,7 @@ const Content = ({content, id}: IContentId) => {
                 </div>
 
                 <div className={style.painel__slot__content}>
-                  <h1>Equipe dentro do sistema</h1>
+                  <h1 className={style.painel__container__table__h1}>Equipe dentro do sistema</h1>
 
                   <div className={style.painel__content}>
                     <div className={style.painel__patamar__content__master}>
@@ -586,7 +594,7 @@ const Content = ({content, id}: IContentId) => {
 
             <section className='painel__familias'>
               <div className={style.painel__container__table}>
-                <h1>Familias excluidas do sistema.</h1>
+                <h1 className={style.painel__container__table__h1}>Familias excluidas do sistema.</h1>
 
                 <div className={style.painel__table__content}>
                   <table>
@@ -628,10 +636,10 @@ const Content = ({content, id}: IContentId) => {
                               <th> <button onClick={() => handleClick(item)}> {item.cpf}</button></th>
                               <th> <button onClick={() => handleClick(item)}> {item.parentesco}</button></th>
                               <th> <button onClick={() => handleClick(item)}> {item.responsavel === true ? 'SIM' : 'NÃO' }</button></th>
-                              <th> <button onClick={() => handleClick(item)}> {item.dataNasc}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.dataNasc)}</button></th>
                               <th> <button onClick={() => handleClick(item)}> {item.nis}</button></th>
-                              <th> <button onClick={() => handleClick(item)}> {item.inicio}</button></th>
-                              <th> <button onClick={() => handleClick(item)}> {item.fim}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.inicio)}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.fim)}</button></th>
                               <th> <button onClick={() => handleClick(item)}> {item.nFilhosMaior}</button></th>
                               <th> <button onClick={() => handleClick(item)}> {item.nFilhosMenor}</button></th>
                               <th> <button onClick={() => handleClick(item)}> {item.residencia}</button></th>

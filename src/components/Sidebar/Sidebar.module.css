@@ -22,11 +22,10 @@
 
 .sidebar__content__patamar__search{
   display: grid;
-  grid-template-columns: minmax(20px, auto) minmax(20px, auto);
+  grid-template-columns: minmax(20px, max-content) minmax(20px, max-content);
   grid-template-rows: minmax(20px, auto) minmax(20px, auto);
 
   gap: .5rem 1rem ;
-  width: 100%;
   box-sizing: border-box;
 }
 
@@ -83,8 +82,10 @@
 
 .sidebar__painel__controle__button:hover,
 .sidebar__painel__controle__button__active:hover,
+.buttons__options select:hover,
 .sidebar__painel__controle__button:focus,
-.sidebar__painel__controle__button__active:focus{
+.sidebar__painel__controle__button__active:focus,
+.buttons__options select:focus{
   outline: none;
   box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
 }
@@ -333,11 +334,14 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  grid-column: 2 / 4;
+  width: 100%;
 }
 
 .buttons__options{
-  grid-column: 1 / -1;
+  grid-column: 1 / 4;
   grid-row: 2;
+  box-sizing: border-box;
 }
 
 .buttons__options button{
@@ -348,6 +352,17 @@
   font-size: .8rem;
   color: var(--c8);
   box-sizing: border-box;
+}
+
+.buttons__options select{
+  border: 1px solid var(--c5);
+  border-radius: .5rem;
+  padding: .25rem .5rem;
+  margin: .25rem;
+  font-size: .8rem;
+  color: var(--c8);
+  box-sizing: border-box;
+  width: 98%;
 }
 
 .buttons__options div button{
