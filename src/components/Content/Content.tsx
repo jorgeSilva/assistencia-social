@@ -404,13 +404,13 @@ const Content = ({content, id}: IContentId) => {
                   <div className={style.modal__buttons__content}>
                     <button className={style.modal__button} onClick={() => setModalUpdate(!modalUpdate)}>Editar</button>
                     <button className={style.modal__button} onClick={() => setModalDelete(!modalDelete)}>Excluir</button>
-                    <button className={style.modal__button} onClick={() => setModalIntegrantes(!modalIntegrantes)}>Integrantes</button>
+                    {/* <button className={style.modal__button} onClick={() => setModalIntegrantes(!modalIntegrantes)}>Integrantes</button> */}
                   </div>
                   :
                   <div className={style.modal__buttons__content}>
                     <button className={style.modal__button__disabled} disabled>Editar</button>
                     <button className={style.modal__button__disabled} disabled>Excluir</button>
-                    <button className={style.modal__button__disabled} disabled>Integrantes</button>
+                    {/* <button className={style.modal__button__disabled} disabled>Integrantes</button> */}
                   </div>
                 }
                 <section className={style.painel__table__content}>
@@ -440,19 +440,19 @@ const Content = ({content, id}: IContentId) => {
                         <ModalActions id={urlIntegrante} type={"update"}/>
                       </>
                     )
-                    ||
-                    (
-                      modalIntegrantes && 
-                      <>
-                        <button className={style.modal__button__active} onClick={() => {
-                          setModalIntegrantes(false)
-                          setOptions(!options)
-                        }}>
-                          <img src={X} alt="" />
-                        </button>
-                        <ModalActions id={urlIntegrante} type={"integrantes"}/>
-                      </>
-                    )
+                    // ||
+                    // (
+                    //   modalIntegrantes && 
+                    //   <>
+                    //     <button className={style.modal__button__active} onClick={() => {
+                    //       setModalIntegrantes(false)
+                    //       setOptions(!options)
+                    //     }}>
+                    //       <img src={X} alt="" />
+                    //     </button>
+                    //     <ModalActions id={urlIntegrante} type={"integrantes"}/>
+                    //   </>
+                    // )
                     ||
                     (
                     <table>

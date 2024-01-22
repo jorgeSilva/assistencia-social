@@ -621,46 +621,74 @@ const Sidebar = ({patamar, exit}: IContent) => {
                     </div>
 
                     <div className={style.buttons__options}>
-                      <button onClick={() => setButtonID('nome')}>Nome</button>
-                      <button onClick={() => setButtonID('cpf')}>CPF</button>
-                      <button onClick={() => setButtonID('parentesco')}>Parentesco</button>
-                      <button onClick={() => setButtonID('responsavel')}>Responsavel</button>
+
+                      <select name="options" id="options" onChange={handleValueSelect}>
+                        <option value={''}> </option>
+                        <option value={'nome'}>Nome</option>
+                        <option value={'cpf'}>CPF</option>
+                        <option value={'parentesco'}>Parentesco</option>
+                        <option value={'responsavel'}>Responsavel</option>
+                        <option value={'dataNascimento'}>Data nascimento</option>
+                        <option value={'nis'}>NIS</option>
+                        <option value={'dataInicio'}>Data inicio</option>
+                        <option value={'dataFim'}>Data fim</option>
+                        <option value={'nFilhosMaior'}>N° filhos de maior</option>
+                        <option value={'nFilhosMenor'}>N° filhos de menor</option>
+                        <option value={'idoso'}>Idoso</option>
+                        <option value={'bpc'}>BPC</option>
+                        <option value={'telefone'}>Telefone</option>
+                        <option value={'rua'}>Rua</option>
+                        <option value={'bairro'}>Bairro</option>
+                        <option value={'nCasa'}>N° Casa</option>
+                        <option value={'complemento'}>Complemento</option>
+                        <option value={'residencia'}>Residencia</option>
+                        <option value={'areaRisco'}>Area de risco</option>
+                      </select>
+
                       {
                         buttonID === 'responsavel' &&
                         <div>
-                          <button onClick={() => setButtonBoolean(true)} >SIM</button>
-                          <button onClick={() => setButtonBoolean(false)} >NÃO</button>
+                          <div>
+                            <input type='radio' id='sim' name="drone" onChange={() => setButtonBoolean(true) } value='sim'/>
+                            <label htmlFor='sim'>Sim</label>
+                          </div>
+
+                          <div>
+                            <input type='radio' id='nao' name="drone" onChange={() => setButtonBoolean(false)} value='nao'/>
+                            <label htmlFor='nao'>Não</label>
+                          </div>
                         </div>
                       }
-                      <button onClick={() => setButtonID('dataNascimento')}>Data nascimento</button>
-                      <button onClick={() => setButtonID('nis')}>NIS</button>
-                      <button onClick={() => setButtonID('dataInicio')}>Data inicio</button>
-                      <button onClick={() => setButtonID('dataFim')}>Data fim</button>
-                      <button onClick={() => setButtonID('nFilhosMaior')}>N° filhos de maior</button>
-                      <button onClick={() => setButtonID('nFilhosMenor')}>N° filhos de menor</button>
-                      <button onClick={() => setButtonID('idoso')}>Idoso</button>
+
                       {
                         buttonID === 'idoso' &&
                         <div>
-                          <button onClick={() => setButtonBoolean(true)} >SIM</button>
-                          <button onClick={() => setButtonBoolean(false)} >NÃO</button>
+                          <div>
+                            <input type='radio' id='sim' name="drone" onChange={() => setButtonBoolean(true) } value='sim'/>
+                            <label htmlFor='sim'>Sim</label>
+                          </div>
+
+                          <div>
+                            <input type='radio' id='nao' name="drone" onChange={() => setButtonBoolean(false)} value='nao'/>
+                            <label htmlFor='nao'>Não</label>
+                          </div>
                         </div>
                       }
-                      <button onClick={() => setButtonID('bpc')}>BPC</button>
+
                       {
                         buttonID === 'bpc' &&
                         <div>
-                          <button onClick={() => setButtonBoolean(true)} >SIM</button>
-                          <button onClick={() => setButtonBoolean(false)} >NÃO</button>
+                          <div>
+                            <input type='radio' id='sim' name="drone" onChange={() => setButtonBoolean(true) } value='sim'/>
+                            <label htmlFor='sim'>Sim</label>
+                          </div>
+
+                          <div>
+                            <input type='radio' id='nao' name="drone" onChange={() => setButtonBoolean(false)} value='nao'/>
+                            <label htmlFor='nao'>Não</label>
+                          </div>
                         </div>
                       }
-                      <button onClick={() => setButtonID('telefone')}>Telefone</button>
-                      <button onClick={() => setButtonID('rua')}>Rua</button>
-                      <button onClick={() => setButtonID('bairro')}>Bairro</button>
-                      <button onClick={() => setButtonID('nCasa')}>N° Casa</button>
-                      <button onClick={() => setButtonID('complemento')}>Complemento</button>
-                      <button onClick={() => setButtonID('residencia')}>Residencia</button>
-                      <button onClick={() => setButtonID('areaRisco')}>Area de risco</button>
                     </div>
                   </>
                   :
@@ -772,7 +800,78 @@ const Sidebar = ({patamar, exit}: IContent) => {
 
                         {
                           id === 'pesquisar' ?
-                          <Input idButton={buttonID} id='pesquisar' type='text' name='Pesquisar'/>
+                          <>
+                            <Input idButton={buttonID} id='pesquisar' type='text' name='Pesquisar'/>
+                            <div className={style.buttons__options}>
+                              <select name="options" id="options" onChange={handleValueSelect}>
+                                <option value={''}> </option>
+                                <option value={'nome'}>Nome</option>
+                                <option value={'cpf'}>CPF</option>
+                                <option value={'parentesco'}>Parentesco</option>
+                                <option value={'responsavel'}>Responsavel</option>
+                                <option value={'dataNascimento'}>Data nascimento</option>
+                                <option value={'nis'}>NIS</option>
+                                <option value={'dataInicio'}>Data inicio</option>
+                                <option value={'dataFim'}>Data fim</option>
+                                <option value={'nFilhosMaior'}>N° filhos de maior</option>
+                                <option value={'nFilhosMenor'}>N° filhos de menor</option>
+                                <option value={'idoso'}>Idoso</option>
+                                <option value={'bpc'}>BPC</option>
+                                <option value={'telefone'}>Telefone</option>
+                                <option value={'rua'}>Rua</option>
+                                <option value={'bairro'}>Bairro</option>
+                                <option value={'nCasa'}>N° Casa</option>
+                                <option value={'complemento'}>Complemento</option>
+                                <option value={'residencia'}>Residencia</option>
+                                <option value={'areaRisco'}>Area de risco</option>
+                              </select>
+
+                              {
+                                buttonID === 'responsavel' &&
+                                <div>
+                                  <div>
+                                    <input type='radio' id='sim' name="drone" onChange={() => setButtonBoolean(true) } value='sim'/>
+                                    <label htmlFor='sim'>Sim</label>
+                                  </div>
+
+                                  <div>
+                                    <input type='radio' id='nao' name="drone" onChange={() => setButtonBoolean(false)} value='nao'/>
+                                    <label htmlFor='nao'>Não</label>
+                                  </div>
+                                </div>
+                              }
+
+                              {
+                                buttonID === 'idoso' &&
+                                <div>
+                                  <div>
+                                    <input type='radio' id='sim' name="drone" onChange={() => setButtonBoolean(true) } value='sim'/>
+                                    <label htmlFor='sim'>Sim</label>
+                                  </div>
+
+                                  <div>
+                                    <input type='radio' id='nao' name="drone" onChange={() => setButtonBoolean(false)} value='nao'/>
+                                    <label htmlFor='nao'>Não</label>
+                                  </div>
+                                </div>
+                              }
+
+                              {
+                                buttonID === 'bpc' &&
+                                <div>
+                                  <div>
+                                    <input type='radio' id='sim' name="drone" onChange={() => setButtonBoolean(true) } value='sim'/>
+                                    <label htmlFor='sim'>Sim</label>
+                                  </div>
+
+                                  <div>
+                                    <input type='radio' id='nao' name="drone" onChange={() => setButtonBoolean(false)} value='nao'/>
+                                    <label htmlFor='nao'>Não</label>
+                                  </div>
+                                </div>
+                              }
+                            </div>
+                          </>
                           :
                           <button id='pesquisar' style={{marginTop: "1rem"}} className={style.sidebar__painel__controle__button} onClick={handleClick}>
                             <span id='pesquisar' className={style.sidebar__painel__controle}>
