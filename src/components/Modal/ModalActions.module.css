@@ -19,6 +19,10 @@
   margin-top: 4rem;
   box-sizing: border-box;
 }
+.modal__table__integrante{
+  margin-top: 1rem;
+  box-sizing: border-box;
+}
 
 table, th, td{
   border: 2px solid var(--c6);
@@ -60,4 +64,42 @@ th input{
 .buttom__delete__update:hover, .buttom__delete__update:focus{
   outline: none;
   box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
+}
+
+.modal__buttons__content{
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: .5rem;
+  padding-top: 3.5rem;
+  box-sizing: border-box;
+}
+
+.modal__button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: .5rem;
+  box-sizing: border-box;
+  padding: .5rem 1rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  border: 2px solid var(--p3);
+  background-color: var(--p1);
+  color: var(--p3);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal__button__disabled{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: .5rem;
+  box-sizing: border-box;
+  padding: .5rem 1rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  border: 2px solid var(--c6);
+  cursor: pointer;
+  font-weight: 600;
 }

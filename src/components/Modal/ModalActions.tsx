@@ -1,7 +1,6 @@
 import React from 'react'
 import style from './ModalActions.module.css'
 import UseFetch from '../../service/useFetch';
-import { useProviderCad } from '../../context/cadContext';
 import api from '../../service/api';
 
 type IModalType = {
@@ -97,14 +96,12 @@ const ModalActions = ({id, type}: IModalType) => {
   const [residencia, setResidencia]         = React.useState<string | null>(null)
   const [areaRisco, setAreaRisco]           = React.useState<string | false>(false)
   const [loadingUP, setLoadingUP] = React.useState<boolean>(false)
-  const [errorUP, setErrorUP] = React.useState<string | null>(null)
   const [msgSuccess, setMsgSuccess] = React.useState<string | null>(null)
-  const [idFamilia, setIdFamilia] = React.useState<string>('')
   const url = document.URL.split("/")[4]
 
   // ------------------------------------------------------------- Chamadas api -----------------------------------------------------------------
 
-  const {data, loading, error} = UseFetch<IFamilias>(`https://backendassistenciasocial-production.up.railway.app/familia/${id}`, {
+  const {data, loading} = UseFetch<IFamilias>(`https://backendassistenciasocial-production.up.railway.app/familia/${id}`, {
     headers:{
       'Authorization': `Bearer ${JSON.parse(tokenValid)}`
     }
@@ -194,10 +191,6 @@ const ModalActions = ({id, type}: IModalType) => {
   }
 
   // ------------------------------------------------------------- React useEffect -----------------------------------------------------------------
-
-  React.useEffect(() => {
-    setIdFamilia(id)
-  }, [id])
 
   React.useEffect(() => {
     if(data){
@@ -532,7 +525,21 @@ const ModalActions = ({id, type}: IModalType) => {
           type === 'integrantes'
           &&
           <>
-            <h1 className={style.modal__h1}>Delete o registro de determinada familia</h1>
+            <h1 className={style.modal__h1}>Veja os familiares pertencentes à está familia</h1>
+            {/* {
+              options && !modalDelete && !modalUpdate && !modalIntegrantes ?
+              <div className={style.modal__buttons__content}>
+                <button className={style.modal__button} onClick={() => setModalIntegrantes(!modalIntegrantes)}>Cadastrar</button>
+                <button className={style.modal__button} onClick={() => setModalUpdate(!modalUpdate)}>Editar</button>
+                <button className={style.modal__button} onClick={() => setModalDelete(!modalDelete)}>Excluir</button>
+              </div>
+              :
+              <div className={style.modal__buttons__content}>
+                <button className={style.modal__button} onClick={() => setModalIntegrantes(!modalIntegrantes)}>Cadastrar</button>
+                <button className={style.modal__button__disabled} disabled>Editar</button>
+                <button className={style.modal__button__disabled} disabled>Excluir</button>
+              </div>
+            } */}
             {
               (
                 integrantes.loading && <p style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>carregando...</p>
@@ -541,7 +548,7 @@ const ModalActions = ({id, type}: IModalType) => {
               (
                 integrantes.data &&
                 <>
-                  <table className={style.modal__table}>
+                  <table className={style.modal__table__integrante}>
                     <thead>
                       <tr>
                         <th>Nome</th>
@@ -558,35 +565,69 @@ const ModalActions = ({id, type}: IModalType) => {
                       )
 
                       ||
-
-                      <tbody>
+                      <>
                         {
-                            integrantes.data && integrantes.data.map(item => (
-                              <tr key={item.cpf}>
-                                <th> <button>{item.nome}</button></th>
-                                <th> <button>{item.cpf}</button></th>
-                                <th> <button>{item.parentesco}</button></th>
-                                <th> <button>{item.dataNasc}</button></th>
-                                <th> <button>{item.fkFamilia.nome} {item.fkFamilia.cpf}</button></th>
-                              </tr>
-                            ))
-                          }
-                      </tbody>
+                          integrantes.data.length ?
+                          <tbody>
+                            {
+                              integrantes.data.map(item => (
+                                <tr key={item.cpf}>
+                                  <th>{item.nome}</th>
+                                  <th>{item.cpf}</th>
+                                  <th>{item.parentesco}</th>
+                                  <th>{item.dataNasc}</th>
+                                  <th>{item.fkFamilia.nome} {item.fkFamilia.cpf}</th>
+                                </tr>
+                              ))
+                              }
+                          </tbody>
+                          : 
+                          <p>Ainda não tem registro de parentesco</p>
+                        }
+                      </>
                     }
                   </table>
-
-                  {/* {
-                    loadingUP ?
-                    <button disabled className={style.buttom__delete__update} onClick={handleDeleteFamilia}>Deletando registro</button>
-                    :
-                    <button className={style.buttom__delete__update} onClick={handleDeleteFamilia}>Excluir Cadastro</button>
-                  }
-
-                  {
-                    msgSuccess && <p style={{color: 'darkgreen', padding: '.5rem'}}>*{msgSuccess}*</p>
-                  } */}
                 </>
               )
+              // ||
+              // (
+              //   modalIntegrantes && 
+              //   <>
+              //     <button className={style.modal__button__active} onClick={() => {
+              //       setModalIntegrantes(false)
+              //       setOptions(!options)
+              //     }}>
+              //       <img src={X} alt="" />
+              //     </button>
+              //     <ModalActions id={urlIntegrante} type={'delete'}/> 
+              //   </>
+              // )
+              // ||
+              // (
+              //   modalDelete && 
+              //   <>
+              //     <button className={style.modal__button__active} onClick={() => {
+              //       setModalDelete(false)
+              //       setOptions(!options)
+              //     }}>
+              //       <img src={X} alt="" />
+              //     </button>
+              //     <ModalActions id={urlIntegrante} type={'delete'}/> 
+              //   </>
+              // )
+              // ||
+              // (
+              //   modalUpdate && 
+              //   <>
+              //     <button className={style.modal__button__active} onClick={() => {
+              //       setModalUpdate(false)
+              //       setOptions(!options)
+              //     }}>
+              //       <img src={X} alt="" />
+              //     </button>
+              //     <ModalActions id={urlIntegrante} type={"update"}/>
+              //   </>
+              // )
             }
           </>
         )

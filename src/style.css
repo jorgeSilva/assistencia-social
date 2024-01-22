@@ -134,6 +134,7 @@ p, h1, h2, h3, h4{
 .painel__equipe__saude{
   grid-column: 4 / -1;
   grid-row: 1;
+  height: max-content;
 }
 
 .painel__familias{
