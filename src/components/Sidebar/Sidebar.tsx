@@ -15,8 +15,6 @@ import IconListaExcluidos from '../../assets/listaExcluido.svg'
 import IconListaExcluidosBlack from '../../assets/listaExcluidoBlack.svg'
 import Input from '../Search/Input';
 import UseFetch from '../../service/useFetch';
-import api from '../../service/api';
-import {format, parseISO} from 'date-fns'
 
 type IContent = {
   patamar: string | null;

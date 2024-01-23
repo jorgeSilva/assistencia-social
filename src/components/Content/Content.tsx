@@ -5,6 +5,7 @@ import ModalActions from '../Modal/ModalActions';
 import X from '../../assets/x-circle-fill.svg'
 import Form from '../Form/Form';
 import { useProviderSidebar } from '../../context/sidebarContext';
+import api from '../../service/api';
 
 type IContentId = {
   content: string;
@@ -60,6 +61,9 @@ const Content = ({content, id}: IContentId) => {
   const [modalUpdate, setModalUpdate] = React.useState(false)
   const [modalDelete, setModalDelete] = React.useState(false)
   const [modalIntegrantes, setModalIntegrantes] = React.useState(false)
+  const [loadingDelete, setLoadingDelete] = React.useState<boolean>(false)
+  const [buttonUserExcluse, setButtonUserExcluse] = React.useState<string | null>(null)
+  const [msgOkDelete, setMsgOkDelete] = React.useState<string | null>(null)
   const {
     familiaFilter
   } = useProviderSidebar()
@@ -83,6 +87,17 @@ const Content = ({content, id}: IContentId) => {
       'Authorization': `Bearer ${JSON.parse(tokenValid)}`
     }
   })
+
+  async function handleDeletarUserEquipeSaude(e: any){
+    e.preventDefault()
+
+    setLoadingDelete(true)
+    await api.delete(`/usuario/delete/${buttonUserExcluse}`, {
+      headers:{
+        'Authorization': `Bearer ${JSON.parse(tokenValid)}`
+      }
+    }).then(({data}) => setMsgOkDelete(data.msg)).catch(e => console.log(e)).finally(() => setLoadingDelete(false))
+  }
     
   // --------------------------------------------------------------------- Funções front-end --------------------------------------------------------------
 
@@ -161,7 +176,27 @@ const Content = ({content, id}: IContentId) => {
                           ||
                           (
                             new Array(dataUser)[0]?.equipe.length !== 0 ?
-                            new Array(dataUser)[0]?.equipe.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> )
+                            new Array(dataUser)[0]?.equipe.map((item) =>(
+                              <>
+                                {
+                                  buttonUserExcluse === item[0]._id ?
+                                  (
+                                    msgOkDelete && <p>{msgOkDelete}</p>
+                                  )
+                                  ||
+                                  (
+                                    <p key={item[0]._id+item[0].nome} style={{marginBottom: '.5rem', marginTop: '.5rem'}}>
+                                      {item[0].nome} 
+                                      <span className={style.button__delete__user} onClick={handleDeletarUserEquipeSaude}></span>
+                                    </p>
+                                  )
+                                  :
+                                  <button onClick={() => setButtonUserExcluse(item[0]._id)} style={{backgroundColor: "transparent", cursor:"pointer", border: "none", display:"flex",  justifyContent: "flex-start", alignItems: "center", fontSize: "1rem", padding: "0"}}>
+                                    <p key={item[0]._id+item[0].nome}>{item[0].nome}</p>
+                                  </button>
+                                }
+                              </>
+                            ))
                             :
                             <p>Ninguem cadastrado ainda</p>
                           )
@@ -180,7 +215,27 @@ const Content = ({content, id}: IContentId) => {
                           ||
                           (
                             new Array(dataUser)[0]?.saude.length !== 0 ?
-                            new Array(dataUser)[0]?.saude.map((item) =>  <p key={item[0]._id+item[0].nome}>{item[0].nome}</p> )
+                            new Array(dataUser)[0]?.saude.map((item) =>(
+                              <>
+                                {
+                                  buttonUserExcluse === item[0]._id ?
+                                  (
+                                    msgOkDelete && <p>{msgOkDelete}</p>
+                                  )
+                                  ||
+                                  (
+                                    <p key={item[0]._id+item[0].nome} style={{marginBottom: '.5rem', marginTop: '.5rem'}}>
+                                      {item[0].nome} 
+                                      <span className={style.button__delete__user} onClick={handleDeletarUserEquipeSaude}></span>
+                                    </p>
+                                  )
+                                  :
+                                  <button onClick={() => setButtonUserExcluse(item[0]._id)} style={{backgroundColor: "transparent", cursor:"pointer", border: "none", display:"flex",  justifyContent: "flex-start", alignItems: "center", fontSize: "1rem", padding: "0"}}>
+                                    <p key={item[0]._id+item[0].nome}>{item[0].nome}</p>
+                                  </button>
+                                }
+                              </>
+                            ))
                             :
                             <p>Ninguem cadastrado ainda</p>
                           )
