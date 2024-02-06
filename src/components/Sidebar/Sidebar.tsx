@@ -799,7 +799,7 @@ const Sidebar = ({patamar, exit}: IContent) => {
                         {
                           id === 'pesquisar' ?
                           <>
-                            <Input idButton={buttonID} id='pesquisar' type='text' name='Pesquisar'/>
+                            <Input idButton={buttonID} onChange={({target}) => setValueSearch(target.value)} id='pesquisar' type='text' name='Pesquisar'/>
                             <div className={style.buttons__options}>
                               <select name="options" id="options" onChange={handleValueSelect}>
                                 <option value={''}> </option>

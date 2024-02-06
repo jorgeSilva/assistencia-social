@@ -98,8 +98,6 @@ const Input = ({...props}: Input) => {
             <button className={style.button__input__radio} onClick={() => setAreaRisco(!areaRisco)}>
               SIM
             </button>
-
-            <p className={style.p__input__radio}>Por padão é sempre não, caso aperte no botão "SIM" você escolhe o qual tipo de 'area de risco'</p>
           </div>
         }
       </div>

@@ -28,10 +28,3 @@
   outline: none;
   box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
 }
-
-@media (max-width: 650px) {
-  .form__content{
-    height: auto;
-    flex-wrap: nowrap;
-  }
-}

@@ -78,7 +78,7 @@
   font-size: .75rem;
   padding: .55rem 1rem 0 1rem;
   box-sizing: border-box;
-  width: 42ch;
+  max-width: 38ch;
 }
 
 @media (max-width: 1100px) {
@@ -118,6 +118,10 @@
 
   .button__input__radio{
     width: max-content;
+  }
+
+  label{
+    font-size: 1rem ;
   }
 }
 
