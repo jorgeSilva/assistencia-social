@@ -148,21 +148,6 @@
   .master__container{
     grid-template-columns: 100px repeat(11, 1fr);
   }
-
-  .form__content{
-    grid-column: 1 /-1;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(15, 1fr);
-    margin: 1rem;
-  }
-  
-  .form{
-    grid-row: 2 / -1;
-  }
-  
-  .painel__container{
-    padding-top: 3rem;
-  }
 }
 
 @media (max-width: 950px) {
@@ -197,8 +182,6 @@
     flex-direction: column;
     grid-template-columns: initial;
     height: 100%;
-    padding-top: 1.5rem;
-    gap: 0;
   }
 
   .painel__content{
@@ -271,32 +254,6 @@
     padding-top: .5rem;
     margin-left: 4rem;
     font-size: 1.5rem;
-  }
-
-  .painel__slot__text p::before{
-    content: "";
-    background-color: var(--p1);
-    width: .85rem;
-    height: .4rem;
-    position: absolute;
-    top: .25rem;
-    left: -5px;
-  }
-}
-
-@media (max-width: 420px) {
-  .painel__container{
-    gap: .5rem;
-  }
-
-  .painel__container{
-    padding-top: 1.25rem;
-  }
-
-  .painel__slot__text p{
-    padding-top: .5rem;
-    margin-left: 4rem;
-    font-size: 1.25rem;
   }
 
   .painel__slot__text p::before{
@@ -456,6 +413,22 @@ table{
   border: 2px solid var(--c6);
   cursor: pointer;
   font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .form__content{
+    grid-column: 1 /-1;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    margin: 1rem;
+  }
+  
+  .form{
+    grid-row: 2 / -1;
+  }
+  .painel__container{
+    padding-top: 3rem;
+  }
 }
 
 @media (max-width: 650px) {
