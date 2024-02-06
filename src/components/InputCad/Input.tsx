@@ -98,6 +98,7 @@ const Input = ({...props}: Input) => {
             <button className={style.button__input__radio} onClick={() => setAreaRisco(!areaRisco)}>
               SIM
             </button>
+            <span className={style.input__info}>?</span>
           </div>
         }
       </div>
