@@ -431,6 +431,12 @@ table{
   }
 }
 
+@media (max-width: 760px) {
+  .painel__container{
+    padding-top: 1.5rem;
+  }
+}
+
 @media (max-width: 650px) {
   .form__content{
     margin: 1rem 1rem 0 1rem;
@@ -452,6 +458,18 @@ table{
     height: auto;
     grid-row: inherit;
     margin-top: 1rem;
+  }
+}
+
+@media (max-width: 458px) {
+  .painel__container{
+    padding-top: 1.15rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .painel__slot__text p{
+    max-width: 12ch;
   }
 }
 

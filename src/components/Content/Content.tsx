@@ -130,6 +130,12 @@ const Content = ({content, id}: IContentId) => {
     return `${dia}/${mes}/${ano}`;
   }
 
+  function formatarCPF(data: any):string{
+    const cpfNovo = String(data).replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    return cpfNovo
+  }
+  
+
   React.useEffect(() => {
     data && patamarSelect(data)
   }, [data])
@@ -345,7 +351,7 @@ const Content = ({content, id}: IContentId) => {
                             familias.data && familias.data.map(item => (
                               <tr key={item.cpf}>
                                 <th> <button onClick={() => handleClick(item)}> {item.nome}</button></th>
-                                <th> <button onClick={() => handleClick(item)}> {item.cpf}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {formatarCPF(item.cpf)}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.parentesco}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.responsavel === true ? 'SIM' : 'NÃO' }</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.dataNasc)}</button></th>
@@ -542,7 +548,7 @@ const Content = ({content, id}: IContentId) => {
                             familiaFilter && familiaFilter.map(item => (
                               <tr key={item.cpf}>
                                 <th> <button onClick={() => handleClick(item)}> {item.nome}</button></th>
-                                <th> <button onClick={() => handleClick(item)}> {item.cpf}</button></th>
+                                <th> <button onClick={() => handleClick(item)}> {formatarCPF(item.cpf)}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.parentesco}</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {item.responsavel === true ? 'SIM' : 'NÃO' }</button></th>
                                 <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.dataNasc)}</button></th>
@@ -688,7 +694,7 @@ const Content = ({content, id}: IContentId) => {
                           excluidos.data && excluidos.data.map(item => (
                             <tr key={item.cpf}>
                               <th> <button onClick={() => handleClick(item)}> {item.nome}</button></th>
-                              <th> <button onClick={() => handleClick(item)}> {item.cpf}</button></th>
+                              <th> <button onClick={() => handleClick(item)}> {formatarCPF(item.cpf)}</button></th>
                               <th> <button onClick={() => handleClick(item)}> {item.parentesco}</button></th>
                               <th> <button onClick={() => handleClick(item)}> {item.responsavel === true ? 'SIM' : 'NÃO' }</button></th>
                               <th> <button onClick={() => handleClick(item)}> {formatarDataBrasileira(item.dataNasc)}</button></th>

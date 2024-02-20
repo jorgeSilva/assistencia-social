@@ -40,11 +40,7 @@ export const AuthProvider = ({children}: React.PropsWithChildren) => {
   const [data, setData] = React.useState<DataLogin | null>(null)
   
   const handleCPF = ({target}: any) => {
-    let inputLength = target.value.length
-
-    if(inputLength === 3 || inputLength === 7) target.value += '.'
-    else if(inputLength === 11) target.value += '-'
-    setCPF(target.value)
+    setCPF(target.value);
   }
 
   const handleSenha = ({target}: any) => {
